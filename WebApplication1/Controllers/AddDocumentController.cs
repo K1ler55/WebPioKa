@@ -14,14 +14,16 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult Add(HttpPostedFileBase file)
+        public ActionResult Add(H)
         {
+
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
             if (file != null)
             {
                 var filename = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/App_Datta"), filename);
                 file.SaveAs(path);
+
                 
                 
             }

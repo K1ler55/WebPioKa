@@ -14,9 +14,7 @@ namespace WebApplication1
         
         public virtual string Name { get; set; }
         public virtual string Permission { get; set; }
-
-        [DataType(DataType.Password)]
-        [Required(ErrorMessage = "This field is required.")]
-        public virtual string Password { get; set; }
+        public virtual int id_flow { get; set; }
+        public virtual int id_user { get; set; }
     }
 }
