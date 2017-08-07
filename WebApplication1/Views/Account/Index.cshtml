@@ -1,7 +1,14 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    Layout = null;
 }
 
-<h2>Index</h2>
+<head>
 
+</head>
+<body>
+    
+    <button type="button" onclick="location.href='@Url.Action("Index", "AddDocument")' value=" AddDocument"">AddDocument</button>
+
+    <button type="button" onclick="location.href='@Url.Action("Index", "Tasks")' value= " Tasks">Tasks</button>
+
+</body>
