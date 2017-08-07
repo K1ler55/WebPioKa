@@ -19,7 +19,7 @@
 </head>
 <body>
     <div id="login-div">
-        @using (Html.BeginForm(FormMethod.Post))
+        @using (Html.BeginForm("Autherize","Login",FormMethod.Post))
         {
             <table>
                 <tr>
@@ -35,8 +35,22 @@
                     </td>
                 </tr>
                 <tr>
+                    <td></td>
+                        <td>
+                            @Html.ValidationMessageFor(model => model.Name)
+                        
+                    </td>
+                </tr>
+                <tr>
                     <td>@Html.LabelFor(model=>model.Password)</td>
                     <td>@Html.EditorFor(model=>model.Password)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.Password)
+
+                    </td>
                 </tr>
                 <tr>
                     <td>
@@ -49,6 +63,9 @@
             </table>
         }
     </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>
 
