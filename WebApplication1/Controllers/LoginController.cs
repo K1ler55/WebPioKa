@@ -23,18 +23,14 @@ namespace WebApplication1.Controllers
              NH.NHibernateOperation operation = new NH.NHibernateOperation();
             IList<User> lists = operation.GetList<User>();
             foreach(User u in lists){
-                if (u.Name.Equals( Marcin.Name) && u.Password.Equals( Marcin.Password))
+                if ((u.Name.Equals( Marcin.Name)) && (u.Password.Equals( Marcin.Password)))
                 {
-                    Session["userID"] = u.Id_user;
+                    
                     return RedirectToAction("Index", "Account");
                 }
-                else
-               
-                return View("Index", Marcin);
-
             }
-
-            return View();
+ 
+                return View("Index");
         }
     }
 }

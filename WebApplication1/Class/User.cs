@@ -22,6 +22,7 @@ namespace WebApplication1
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "This field is required.")]
         public virtual string Password { get; set; }
+        
 
     }
 }
