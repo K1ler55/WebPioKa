@@ -5,7 +5,7 @@ using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication1.Class
+namespace WebApplication1
 {
     public class Document
     {

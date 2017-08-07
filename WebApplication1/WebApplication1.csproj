@@ -147,8 +147,15 @@
     <Compile Include="App_Data\App_Start\BundleConfig.cs" />
     <Compile Include="App_Data\App_Start\FilterConfig.cs" />
     <Compile Include="App_Data\App_Start\RouteConfig.cs" />
+    <Compile Include="Class\Access.cs" />
+    <Compile Include="Class\Attribute.cs" />
     <Compile Include="Class\Document.cs" />
+    <Compile Include="Class\ListElement.cs" />
+    <Compile Include="Class\Position.cs" />
+    <Compile Include="Class\Step.cs" />
+    <Compile Include="Class\StepCondition.cs" />
     <Compile Include="Class\User.cs" />
+    <Compile Include="Class\Workflow.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AddDocumentController.cs" />
     <Compile Include="Controllers\DoneTasksController.cs" />
@@ -159,13 +166,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="NH\InitNH.cs" />
-    <Compile Include="NH\MapAttribute.cs" />
-    <Compile Include="NH\MapDocument.cs" />
-    <Compile Include="NH\MapFlow.cs" />
-    <Compile Include="NH\MapListElement.cs" />
-    <Compile Include="NH\MapPosition.cs" />
-    <Compile Include="NH\MapStep.cs" />
-    <Compile Include="NH\MapStepCondition.cs" />
     <Compile Include="NH\MapUser.cs" />
     <Compile Include="NH\NHibernateOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
