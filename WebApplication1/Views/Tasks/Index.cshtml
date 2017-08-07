@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Active Tasks to do</h2>
+
+@foreach (String s in ViewBag.Tasks)
+{
+    <button type="button" onclick="location.href='@Url.Action("Index", "Tasks")' ">@s</button>
+}
+
