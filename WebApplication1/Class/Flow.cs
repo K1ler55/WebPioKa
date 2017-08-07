@@ -12,5 +12,6 @@ namespace WebApplication1
         public virtual string Flow_description { get; set; }
         public virtual IList<Attribute> AtributeList { get; set; }
         public virtual IList<Position> PositionList { get ; set; }
+        public virtual IList<Document> DocumentList { get; set; }
     }
 }
