@@ -16,14 +16,15 @@ namespace WebApplication1.Controllers
         }
         public ActionResult AddDocument()
         {
-            return View();
+
+            return RedirectToAction("Index", "AddDocument");
         }
         public ActionResult Tasks()
         {
-            return View();
+            return RedirectToAction("Index", "Tasks");
         }
-        public ActionResult DoneTasks()
-        { return View(); }
+        public ActionResult DoneTasks() {
+            return RedirectToAction("Index", "DoneTasks"); }
 
 
 

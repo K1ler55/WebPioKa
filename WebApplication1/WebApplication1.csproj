@@ -149,8 +149,11 @@
     <Compile Include="App_Data\App_Start\RouteConfig.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AddDocumentController.cs" />
+    <Compile Include="Controllers\DoneTasksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\TasksController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -201,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="Views\AddDocument\" />
+    <Folder Include="Views\DoneTasks\" />
+    <Folder Include="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
