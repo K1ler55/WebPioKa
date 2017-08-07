@@ -12,15 +12,17 @@ namespace WebApplication1
     {
        
         
-        public int Id_user { get; set; }
-        public string Surname { get; set; }
+        public virtual int Id_user { get; set; }
+        public virtual string Surname { get; set; }
         [Display(Name = "Username")]
         [Required(ErrorMessage ="This field is required.")]
-        public string Name { get; set; }
-        public string Permission { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Permission { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "This field is required.")]
-        public string Password { get; set; }
+        public virtual string Password { get; set; }
+
+        public virtual string LoginErrorMessage { get; set; }
     }
 }

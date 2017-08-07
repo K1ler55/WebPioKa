@@ -23,10 +23,13 @@ namespace WebApplication1.Controllers
              NH.NHibernateOperation operation = new NH.NHibernateOperation();
             IList<User> lists = operation.GetList<User>();
             foreach(User u in lists){
-                if(u.Name == user.Name && u.Password == user.Password)
+                if (u.Name == user.Name && u.Password == user.Password)
                 {
-                    
-                } 
+                }
+                else
+                    user.LoginErrorMessage = "Wrong username or Password";
+                return View("Index", user);
+
             }
 
             return View();
