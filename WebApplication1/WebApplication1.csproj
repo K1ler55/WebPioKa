@@ -159,6 +159,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="NH\InitNH.cs" />
+    <Compile Include="NH\MapAttribute.cs" />
+    <Compile Include="NH\MapDocument.cs" />
+    <Compile Include="NH\MapFlow.cs" />
+    <Compile Include="NH\MapListElement.cs" />
+    <Compile Include="NH\MapPosition.cs" />
+    <Compile Include="NH\MapStep.cs" />
+    <Compile Include="NH\MapStepCondition.cs" />
     <Compile Include="NH\MapUser.cs" />
     <Compile Include="NH\NHibernateOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
