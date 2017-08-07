@@ -18,17 +18,19 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Autherize(WebApplication1.User user)
+        public ActionResult Autherize(WebApplication1.User Marcin)
         {
              NH.NHibernateOperation operation = new NH.NHibernateOperation();
             IList<User> lists = operation.GetList<User>();
             foreach(User u in lists){
-                if (u.Name == user.Name && u.Password == user.Password)
+                if (u.Name.Equals( Marcin.Name) && u.Password.Equals( Marcin.Password))
                 {
+                    Session["userID"] = u.Id_user;
+                    return RedirectToAction("Index", "Account");
                 }
                 else
-                    user.LoginErrorMessage = "Wrong username or Password";
-                return View("Index", user);
+               
+                return View("Index", Marcin);
 
             }
 

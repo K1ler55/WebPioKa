@@ -23,6 +23,5 @@ namespace WebApplication1
         [Required(ErrorMessage = "This field is required.")]
         public virtual string Password { get; set; }
 
-        public virtual string LoginErrorMessage { get; set; }
     }
 }
