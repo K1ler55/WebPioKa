@@ -18,11 +18,17 @@ namespace WebApplication1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Autherize(WebApplication1.User Marcin)
+        public ActionResult Autherize(WebApplication1.User user)
         {
              NH.NHibernateOperation operation = new NH.NHibernateOperation();
             IList<User> lists = operation.GetList<User>();
-            
+            foreach(User u in lists){
+                if(u.Name == user.Name && u.Password == user.Password)
+                {
+                    
+                } 
+            }
+
             return View();
         }
     }
