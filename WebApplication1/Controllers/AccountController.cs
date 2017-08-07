@@ -11,7 +11,21 @@ namespace WebApplication1.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            //informacje o uzytkowniku jakies pierdolki
             return View();
         }
+        public ActionResult AddDocument()
+        {
+            return View();
+        }
+        public ActionResult Tasks()
+        {
+            return View();
+        }
+        public ActionResult DoneTasks()
+        { return View(); }
+
+
+
     }
 }
