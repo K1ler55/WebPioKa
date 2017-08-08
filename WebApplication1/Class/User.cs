@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1
 {
-    public partial class User
+    public  class User
     {
        
         
@@ -18,10 +18,12 @@ namespace WebApplication1
         [Required(ErrorMessage ="This field is required.")]
         public virtual string Name { get; set; }
         public virtual string Permission { get; set; }
-
+        public virtual string Email { get; set; }
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "This field is required.")]
-        public virtual string Password { get; set; }
+        public virtual string Password { get; set; }        
+        
+        public virtual Position Id_position { get; set; }
         public virtual IList<Document> DocumentList { get; set; }
     }
 }

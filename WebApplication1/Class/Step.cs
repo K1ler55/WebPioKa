@@ -9,8 +9,8 @@ namespace WebApplication1
     {
         
         public virtual int Id_step { get; set; }
-        public virtual int Start_position_id { get; set; }
-        public virtual int End_position_id { get; set; }
+        public virtual Position Start_position_id { get; set; }
+        public virtual Position End_position_id { get; set; }
         public virtual string Description { get; set; }
         public virtual IList<Step> StepConditionList { get ; set ; }
     }

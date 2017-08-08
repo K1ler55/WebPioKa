@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
 
         public ActionResult Execute(int number)
         {
-
+            ViewBag.Number = number;
             return View();
         }
     }

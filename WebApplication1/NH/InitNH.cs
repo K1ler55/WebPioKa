@@ -33,12 +33,19 @@ namespace WebApplication1.NH
             ModelMapper mapper = new ModelMapper();
             mapper.AddMappings(new List<Type>()
             {
-              typeof(MapUser)
-             
+              typeof(MapUser),
+              typeof(MapAttribute),
+              typeof(MapDocument),
+              typeof(MapFlow),
+              typeof(MapListElement),
+              typeof(MapPosition),
+              typeof(MapStep),
+              typeof(MapStepCondition)           
+
 
             });
 
-            config.AddDeserializedMapping(mapper.CompileMappingForAllExplicitlyAddedEntities(), null);
+          config.AddDeserializedMapping(mapper.CompileMappingForAllExplicitlyAddedEntities(), null);
 
             NHibernate.Tool.hbm2ddl.SchemaMetadataUpdater.QuoteTableAndColumns(config);
 

@@ -37,7 +37,7 @@ namespace WebApplication1
             {
                 m.Inverse(true); m.Key(k => k.Column("id_user"));
 
-            }, r => r.OneToMany(x => x.Class(typeof(Step))));
+            }, r => r.OneToMany(x => x.Class(typeof(User))));
 
 
         }

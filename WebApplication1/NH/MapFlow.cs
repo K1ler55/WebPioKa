@@ -32,7 +32,7 @@ namespace WebApplication1
             {
                 m.Inverse(true); m.Key(k => k.Column("flow_id"));
 
-            }, r => r.OneToMany(x => x.Class(typeof(Step))));
+            }, r => r.OneToMany(x => x.Class(typeof(Document))));
         }
     }
 }

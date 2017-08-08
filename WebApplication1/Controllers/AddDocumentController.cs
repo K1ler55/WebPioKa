@@ -14,11 +14,19 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
         public ActionResult Add(Document document)
         {
 
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
             if (document != null)
+=======
+        public ActionResult Add()
+        {
+
+            /*NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            if (file != null)
+>>>>>>> 0f01ea1379592715afabbd87ac78b66c31ce0f19
             {
                 var filename = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/App_Datta"), filename);
@@ -26,7 +34,7 @@ namespace WebApplication1.Controllers
 
                 
                 
-            }
+            }*/
         
             return View();
         }

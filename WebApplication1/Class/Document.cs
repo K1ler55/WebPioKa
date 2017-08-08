@@ -10,11 +10,9 @@ namespace WebApplication1
     public class Document
     {
 
-        public virtual int Id_document { get; set; }
-        
+        public virtual int Id_document { get; set; }        
         public virtual string Name { get; set; }
-        public virtual string Permission { get; set; }
-        public virtual int id_flow { get; set; }
-        public virtual int id_user { get; set; }
+        public virtual Flow Id_flow { get; set; }
+        public virtual User Id_user { get; set; }
     }
 }
