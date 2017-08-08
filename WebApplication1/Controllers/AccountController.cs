@@ -16,7 +16,6 @@ namespace WebApplication1.Controllers
         }
         public ActionResult AddDocument()
         {
-
             return RedirectToAction("Index", "AddDocument");
         }
         public ActionResult Tasks()

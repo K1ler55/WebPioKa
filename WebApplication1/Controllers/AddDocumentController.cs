@@ -14,10 +14,10 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult Add(H)
+        public ActionResult Add()
         {
 
-            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            /*NH.NHibernateOperation operation = new NH.NHibernateOperation();
             if (file != null)
             {
                 var filename = Path.GetFileName(file.FileName);
@@ -26,7 +26,7 @@ namespace WebApplication1.Controllers
 
                 
                 
-            }
+            }*/
         
             return View();
         }

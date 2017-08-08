@@ -14,8 +14,7 @@ namespace WebApplication1
         {
             Table("Document");
             Id(x => x.Id_document, m => { m.Column("id_document"); m.Generator(Generators.Identity); });
-            Property(x => x.Name, m => { m.Column("name"); });
-            Property(x => x.Type, m => { m.Column("type"); });
+            Property(x => x.Name, m => { m.Column("name"); });      
             ManyToOne(x => x.Id_flow, m =>
             {
                 m.Column("id_flow");
