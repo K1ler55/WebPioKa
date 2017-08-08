@@ -1,17 +1,16 @@
 ﻿@{
     Layout = null;
 }
+<h2>Index2</h2>
+@using (Html.BeginForm("Add", "AddDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" name="uploadFile" />
+    <input type="submit" />
+    <select>
+        @{ WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
 
-<head>
 
-</head>
-<body>
-@using (Html.BeginForm("Add", "AddDocument", FormMethod.Post, new { enctype = "multipart / form-data" }))
-{   <input type="file" name="file" />
-    <input type="submit" value="ok"/>
 
+        }
+    </select>
 }
-   
-
-</body>
-

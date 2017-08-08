@@ -12,6 +12,9 @@ namespace WebApplication1
 
         public virtual int Id_document { get; set; }        
         public virtual string Name { get; set; }
+        
+        public virtual  byte[] Data { get; set; }
+        public virtual string ContentType { get; set; }
         public virtual Flow Id_flow { get; set; }
         public virtual User Id_user { get; set; }
     }
