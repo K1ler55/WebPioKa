@@ -26,6 +26,27 @@ namespace WebApplication1.NH
             }
         }
 
+        public IList<Step> GetUserTasks (User user) 
+        {
+            
+            using (ISession session = InitNH.OppenSession())
+            {
+                IList<StepCondition> list = new List<StepCondition>();
+                using (ITransaction transaction = session.BeginTransaction())
+                {          
+                    Position pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List().First();
+                                        
+                    IList<Step> steplist = session.QueryOver<Step>().Where(type => type.Start_position_id.Id_position == pos.Id_position).List();
+                    transaction.Commit();
+
+
+                    return steplist;                   
+                    
+                }
+            }
+            
+        }
+
         public void Delete<T>(T element)
         {
             using (ISession session = InitNH.OppenSession())

@@ -12,6 +12,6 @@ namespace WebApplication1
         public virtual Position Start_position_id { get; set; }
         public virtual Position End_position_id { get; set; }
         public virtual string Description { get; set; }
-        public virtual IList<Step> StepConditionList { get ; set ; }
+        public virtual IList<StepCondition> StepConditionList { get ; set ; }
     }
 }

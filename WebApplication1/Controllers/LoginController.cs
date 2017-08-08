@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
             foreach(User u in lists){
                 if ((u.Name.Equals( Marcin.Name)) && (u.Password.Equals( Marcin.Password)))
                 {
-                    
+                    TasksController.user = u; 
                     return RedirectToAction("Index", "Account");
                 }
             }

@@ -9,16 +9,17 @@ namespace WebApplication1.Controllers
     public class TasksController : Controller
     {
         // GET: Tasks
-        private IList<String> tasks;
+        public static User user;
+        private IList<Step> steplist = new List<Step>();
+        
         public ActionResult Index()
         {
+            if (user == null) return RedirectToAction("Index", "Login");
 
-            tasks = new List<String>();
-            for(int i = 0; i < 5; i++)
-            {
-                tasks.Add("Zadanie " + i);
-            }
-            ViewBag.Tasks = tasks;
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            steplist = operation.GetUserTasks(user);            
+
+            ViewBag.List = steplist;
             return View();
         }
 
