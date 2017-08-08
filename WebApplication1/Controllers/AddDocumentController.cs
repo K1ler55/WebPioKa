@@ -14,11 +14,11 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        public ActionResult Add(H)
+        public ActionResult Add(Document document)
         {
 
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
-            if (file != null)
+            if (document != null)
             {
                 var filename = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/App_Datta"), filename);
