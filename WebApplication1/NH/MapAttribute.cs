@@ -28,13 +28,9 @@ namespace WebApplication1
 
             }, r => r.OneToMany(x => x.Class(typeof(FlowExtension))));
             ManyToOne(x => x.Id_workflow, m => {
-                m.Column("id_flow");
+                m.Column("id_workflow");
             });
-            Bag(x => x.FlowExtensionList, m =>
-            {
-                m.Inverse(true); m.Key(k => k.Column("id_attribute"));
 
-            }, r => r.OneToMany(x => x.Class(typeof(Access))));
 
         }
     }

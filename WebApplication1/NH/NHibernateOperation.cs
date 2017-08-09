@@ -52,18 +52,7 @@ namespace WebApplication1.NH
             }
         }
 
-        public IList<Document> GetUserDocuments(FlowDefinition flow)
-        {
-            using (ISession session = InitNH.OppenSession())
-            {
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    IList<Document> docs = session.QueryOver<Document>().Where(p => p.Id_flowextension.id_flow == flow.id_flowDefinition).List();
-                    transaction.Commit();
-                    return docs;
-                }
-            }
-        }
+        
 
         public IList<Step> GetUserTasks (Position pos) 
         {
