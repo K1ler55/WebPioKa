@@ -25,6 +25,14 @@ namespace WebApplication1.Controllers
 
         public ActionResult Execute(int number)
         {
+            if (user == null) return RedirectToAction("Index", "Login");
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+
+            Position pos = operation.GetUserPosition(user);
+            Flow flow = operation.GetUserFlow(pos);
+            IList<Document> docs = operation.GetUserDocuments(flow);
+
+            ViewBag.Documents = (docs == null ? new List<Document>() : docs);
             ViewBag.Number = number;
             return View();
         }

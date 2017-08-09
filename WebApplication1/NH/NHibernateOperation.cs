@@ -26,6 +26,45 @@ namespace WebApplication1.NH
             }
         }
 
+        public Position GetUserPosition(User user)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Position pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List().First();
+                    transaction.Commit();
+                    return pos;
+                }
+            }
+        }
+
+        public Flow GetUserFlow ( Position position)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Flow flow = session.QueryOver<Flow>().Where(p => p.Flow_id == position.Id_flow.Flow_id).List().First();
+                    transaction.Commit();
+                    return flow;
+                }
+            }
+        }
+
+        public IList<Document> GetUserDocuments(Flow flow)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Document> docs = session.QueryOver<Document>().Where(p => p.Id_flow.id_flow == flow.id_flow).List();
+                    transaction.Commit();
+                    return docs;
+                }
+            }
+        }
+
         public IList<Step> GetUserTasks (User user) 
         {
             
