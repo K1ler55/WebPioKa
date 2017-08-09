@@ -6,11 +6,22 @@
 {
     <input type="file" name="uploadFile" />
     <input type="submit" />
-    <select>
+    <select id="testSelect" name="testSelect"
+            onclick="optclicked">
         @{ WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
-
-
-
+            Flow flow = new Flow();
+            string FlowValue;
+            IList<Flow> flowlist = new List<Flow>();
+            flowlist = operation.GetList<Flow>();
+            foreach (Flow i in flowlist)
+            {
+                <option value="@i.id_flow">@i.id_flow</option>
+            }
+            FlowValue = Request["testSelect"];
+           
         }
+
     </select>
-}
+    
+
+            }

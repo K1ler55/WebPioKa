@@ -25,7 +25,7 @@ namespace WebApplication1
             }, r => r.OneToMany(x => x.Class(typeof(ListElement))));
 
             ManyToOne(x => x.Id_workflow, m => {
-                m.Column("id_workflow");
+                m.Column("id_flow");
             });
 
         }

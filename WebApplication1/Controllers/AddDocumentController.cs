@@ -9,12 +9,79 @@ namespace WebApplication1.Controllers
 {
     public class AddDocumentController : Controller
     {
+        public static User user;
+        public static Flow flow;
         // GET: AddDocument
         public ActionResult Index()
         {
+            if (user == null) return RedirectToAction("Index", "Login");
             return View();
         }
 
-       
+        
+        [HttpPost]
+        public ActionResult Add(HttpPostedFileBase uploadFile)
+        {
+           
+
+            string flowvalue = Request["testSelect"];
+            Document newDocument = new Document();
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            newDocument.Id_user = user;
+
+            IList<Flow> flowlist = new List<Flow>();
+            flowlist = operation.GetList<Flow>();
+            foreach (Flow i in flowlist)
+            {
+                if (i.id_flow == Int32.Parse(flowvalue))
+                {
+                    newDocument.Id_flow = i;
+                }
+            }
+           
+                
+            if (uploadFile != null)
+            {
+                string filePath = uploadFile.FileName;
+                newDocument.Name = Path.GetFileName(uploadFile.FileName);
+                string ext = Path.GetExtension(uploadFile.FileName);
+                string contenttype = string.Empty;
+                switch (ext)
+                {
+                    case ".doc":
+                        contenttype = "application/vnd.ms-word";
+                        break;
+                    case ".docx":
+                        contenttype = "application/vnd.ms-word";
+                        break;
+                    case ".pdf":
+                        contenttype = "application/pdf";
+                        break;
+                }
+                if (contenttype != String.Empty)
+                {
+                    byte[] bytes;
+                    using (BinaryReader br = new BinaryReader(uploadFile.InputStream))
+                    {
+                        bytes = br.ReadBytes(uploadFile.ContentLength);
+                    }
+                    newDocument.Data = bytes;
+                    newDocument.ContentType = contenttype;
+                    operation.AddElement<Document>(newDocument);
+                    return View("Index", "Account");
+                }
+            }
+            return RedirectToAction("Index", "Account");
+        }
+
+
+
     }
+
+
+
+
+
+
+
 }
