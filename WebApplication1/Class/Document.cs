@@ -15,7 +15,7 @@ namespace WebApplication1
         
         public virtual  byte[] Data { get; set; }
         public virtual string ContentType { get; set; }
-        public virtual FlowDefinition Id_flow { get; set; }
-        public virtual User Id_user { get; set; }
+        public virtual Flow Id_flow { get; set; }
+
     }
 }

@@ -22,8 +22,7 @@ namespace WebApplication1
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "This field is required.")]
         public virtual string Password { get; set; }        
-        
         public virtual Position Id_position { get; set; }
-        public virtual IList<Document> DocumentList { get; set; }
+        public virtual IList<Flow> FlowList { get; set; }
     }
 }

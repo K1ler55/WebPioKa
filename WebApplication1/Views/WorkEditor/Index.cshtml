@@ -2,8 +2,9 @@
     Layout = null;
 }
 <h2>Index2</h2>
-@using (Html.BeginForm("Add", "AddDocument", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    
     <input type="file" name="uploadFile" />
     <input type="submit" />
     <select id="testSelect" name="testSelect"

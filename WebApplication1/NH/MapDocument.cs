@@ -22,11 +22,6 @@ namespace WebApplication1
             {
                 m.Column("id_flow");
             });
-            ManyToOne(x => x.Id_user, m =>
-            {
-                m.Column("id_user");
-            });
-
         }
     }
 }

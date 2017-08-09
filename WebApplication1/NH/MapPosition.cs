@@ -18,7 +18,7 @@ namespace WebApplication1
             Table("Position");
             Id(x => x.Id_position, m => { m.Column("id_position"); m.Generator(Generators.Identity); });
             Property(x => x.Name, m => { m.Column("name"); });
-            ManyToOne(x => x.Id_flow, m =>
+            ManyToOne(x => x.Id_flowDefinition, m =>
             {
                 m.Column("id_flow");
             });

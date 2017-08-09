@@ -7,11 +7,13 @@ namespace WebApplication1
 {
     public class FlowDefinition
     {
-        public virtual int id_flow { get; set; }
+        public virtual int id_flowDefinition { get; set; }
         public virtual string Flow_name { get; set; }
         public virtual string Flow_description { get; set; }
         public virtual IList<Attribute> AtributeList { get; set; }
         public virtual IList<Position> PositionList { get ; set; }
-        public virtual IList<Document> DocumentList { get; set; }
+
+        public virtual IList<Flow> FlowList { get; set; }
+
     }
 }

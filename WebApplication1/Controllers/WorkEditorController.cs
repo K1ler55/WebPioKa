@@ -7,10 +7,11 @@ using System.Web.Mvc;
 
 namespace WebApplication1.Controllers
 {
-    public class AddDocumentController : Controller
+    public class WorkEditorController : Controller
     {
-        public static User user;
+        
         public static FlowDefinition flow;
+        public static User user;
         // GET: AddDocument
         public ActionResult Index()
         {
@@ -27,15 +28,16 @@ namespace WebApplication1.Controllers
             string flowvalue = Request["testSelect"];
             Document newDocument = new Document();
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
-            newDocument.Id_user = user;
+            
+
 
             IList<FlowDefinition> flowlist = new List<FlowDefinition>();
             flowlist = operation.GetList<FlowDefinition>();
             foreach (FlowDefinition i in flowlist)
             {
-                if (i.id_flow == Int32.Parse(flowvalue))
+                if (i.id_flowDefinition == Int32.Parse(flowvalue))
                 {
-                    newDocument.Id_flow = i;
+                    
                 }
             }
            

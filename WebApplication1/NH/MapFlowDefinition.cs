@@ -13,7 +13,7 @@ namespace WebApplication1
         public MapFlowDefinition()
         {
             Table("WorkFlowDefinition");
-            Id(x => x.id_flow, m => { m.Column("id_flow"); m.Generator(Generators.Identity); });
+            Id(x => x.id_flowDefinition, m => { m.Column("id_flow"); m.Generator(Generators.Identity); });
             Property(x => x.Flow_name, m => { m.Column("flow_name"); });
             Property(x => x.Flow_description, m => { m.Column("flow_description"); });
             Bag(x => x.PositionList, m =>
@@ -28,11 +28,13 @@ namespace WebApplication1
 
             }, r => r.OneToMany(x => x.Class(typeof(Attribute))));
 
-            Bag(x => x.DocumentList, m =>
+            Bag(x => x.FlowList, m =>
             {
                 m.Inverse(true); m.Key(k => k.Column("id_flow"));
 
-            }, r => r.OneToMany(x => x.Class(typeof(Document))));
+            }, r => r.OneToMany(x => x.Class(typeof(Flow))));
+
+
         }
     }
 }

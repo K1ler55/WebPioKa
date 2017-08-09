@@ -14,5 +14,7 @@ namespace WebApplication1
         public virtual string Type { get; set; }
         public virtual IList<ListElement> List { get ; set; }       
         public virtual IList<Access> Accesslist { get ; set ; }
+
+        public virtual IList<Flow> FlowList { get; set; }
     }
 }

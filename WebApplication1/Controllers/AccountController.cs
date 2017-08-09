@@ -15,9 +15,9 @@ namespace WebApplication1.Controllers
             //informacje o uzytkowniku jakies pierdolki
             return View();
         }
-        public ActionResult AddDocument()
+        public ActionResult PickFlow()
         {
-            return RedirectToAction("Index", "AddDocument");
+            return RedirectToAction("Index", "PickFlow");
         }
         public ActionResult Tasks()
         {

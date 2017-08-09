@@ -150,6 +150,7 @@
     <Compile Include="Class\Access.cs" />
     <Compile Include="Class\Attribute.cs" />
     <Compile Include="Class\Document.cs" />
+    <Compile Include="Class\Flow.cs" />
     <Compile Include="Class\FlowDefinition.cs" />
     <Compile Include="Class\ListElement.cs" />
     <Compile Include="Class\Position.cs" />
@@ -157,7 +158,8 @@
     <Compile Include="Class\StepCondition.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AddDocumentController.cs" />
+    <Compile Include="Controllers\PickFlowController.cs" />
+    <Compile Include="Controllers\WorkEditorController.cs" />
     <Compile Include="Controllers\DoneTasksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="NH\InitNH.cs" />
     <Compile Include="NH\MapAttribute.cs" />
     <Compile Include="NH\MapDocument.cs" />
+    <Compile Include="NH\MapFlow.cs" />
     <Compile Include="NH\MapFlowDefinition.cs" />
     <Compile Include="NH\MapListElement.cs" />
     <Compile Include="NH\MapPosition.cs" />
@@ -216,9 +219,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\AddDocument\Index.cshtml" />
+    <Content Include="Views\WorkEditor\Index.cshtml" />
     <Content Include="Views\Tasks\Execute.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
+    <Content Include="Views\PickFlow\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
