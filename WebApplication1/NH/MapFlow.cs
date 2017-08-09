@@ -20,7 +20,12 @@ namespace WebApplication1
             {
                 m.Column("id_user");
             });
-           
+
+            ManyToOne(x => x.id_position, m =>
+            {
+                m.Column("id_position");
+            });
+
 
             ManyToOne(x => x.id_flowdefinition, m =>
             {

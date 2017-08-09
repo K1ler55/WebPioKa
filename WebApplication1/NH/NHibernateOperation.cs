@@ -26,13 +26,13 @@ namespace WebApplication1.NH
             }
         }
 
-        public Position GetUserPosition(User user)
+        public IList<Position> GetUserPosition(User user)
         {
             using (ISession session = InitNH.OppenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    Position pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List().First();
+                    IList<Position> pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List();
                     transaction.Commit();
                     return pos;
                 }
@@ -65,20 +65,17 @@ namespace WebApplication1.NH
             }
         }
 
-        public IList<Step> GetUserTasks (User user) 
+        public IList<Step> GetUserTasks (Position pos) 
         {
             
             using (ISession session = InitNH.OppenSession())
             {
                 IList<StepCondition> list = new List<StepCondition>();
                 using (ITransaction transaction = session.BeginTransaction())
-                {          
-                    Position pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List().First();
+                {        
                                         
                     IList<Step> steplist = session.QueryOver<Step>().Where(type => type.Start_position_id.Id_position == pos.Id_position).List();
                     transaction.Commit();
-
-
                     return steplist;                   
                     
                 }

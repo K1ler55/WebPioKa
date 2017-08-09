@@ -39,6 +39,12 @@ namespace WebApplication1
 
             }, r => r.OneToMany(x => x.Class(typeof(User))));
 
+            Bag(x => x.FlowList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_flow"));
+
+            }, r => r.OneToMany(x => x.Class(typeof(Flow))));
+
 
         }
 

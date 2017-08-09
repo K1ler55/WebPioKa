@@ -15,6 +15,7 @@ namespace WebApplication1
         public virtual FlowDefinition id_flowdefinition{ get; set; }
 
         public virtual IList<FlowExtension> FlowExtensionList { get; set; }
+        public virtual Position id_position { get; set; }
 
 
 

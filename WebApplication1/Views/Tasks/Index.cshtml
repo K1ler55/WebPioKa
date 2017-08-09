@@ -5,11 +5,19 @@
 
 <h2>Active Tasks to do</h2>
 
-@for (int i = 0; i < ViewBag.List.Count; i++)
+@foreach (KeyValuePair<Position, IList<Step>> item in ViewBag.Map)
 {
-    <h2>@ViewBag.List[i].Description</h2>
-    <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { number = i })' ">Wykonaj to</button><br />
+    <h2>@item.Key.Name</h2><br/>
+    
+    for (int i = 0; i < item.Value.Count; i++)
+    {
+        <h3>@item.Value[i].Description</h3>
+        <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { position = item.Key.Id_position, number = i })' ">Wykonaj to</button><br />
+        <br/>
+    }
 }
+
+
 
 
 
