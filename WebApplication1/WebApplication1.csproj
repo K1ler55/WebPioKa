@@ -148,7 +148,7 @@
     <Compile Include="App_Data\App_Start\FilterConfig.cs" />
     <Compile Include="App_Data\App_Start\RouteConfig.cs" />
     <Compile Include="Class\Access.cs" />
-    <Compile Include="Class\Attribute.cs" />
+    <Compile Include="Class\Attributes.cs" />
     <Compile Include="Class\Document.cs" />
     <Compile Include="Class\Flow.cs" />
     <Compile Include="Class\FlowDefinition.cs" />

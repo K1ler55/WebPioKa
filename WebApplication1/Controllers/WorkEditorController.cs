@@ -9,9 +9,10 @@ namespace WebApplication1.Controllers
 {
     public class WorkEditorController : Controller
     {
-        
-        public static FlowDefinition flow;
+
+        public static Flow flow;
         public static User user;
+        FlowExtension flowext = new FlowExtension();
         // GET: AddDocument
         public ActionResult Index()
         {

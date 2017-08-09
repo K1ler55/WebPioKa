@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication1
 {
-    class MapAttribute : ClassMapping<Attribute>
+    class MapAttribute : ClassMapping<Attributes>
     {
         public MapAttribute()
         {
@@ -30,6 +30,11 @@ namespace WebApplication1
             ManyToOne(x => x.Id_workflow, m => {
                 m.Column("id_flow");
             });
+            Bag(x => x.FlowExtensionList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_attribute"));
+
+            }, r => r.OneToMany(x => x.Class(typeof(Access))));
 
         }
     }

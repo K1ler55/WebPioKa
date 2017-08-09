@@ -4,8 +4,20 @@
 <h2>Index2</h2>
 @using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    
-        
+    WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
+    Attributes attribute = new Attributes();
+    string FlowValue;
+    IList<Attributes> attributelist = new List<Attributes>();
+    attributelist = operation.GetList<Attributes>();
+    foreach (Attributes i in attributelist)
+    {
+            <input type="text" value="@i.Id_attribute">@i.Id_attribute
+    }
+    FlowValue = Request["testSelect"];
+
+}
+
+
 
 
 

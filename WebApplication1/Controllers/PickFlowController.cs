@@ -9,6 +9,7 @@ namespace WebApplication1.Controllers
     public class PickFlowController : Controller
     {
         FlowDefinition flowdefinition =  new FlowDefinition();
+        Flow flow = new Flow();
         public static User user;
         public ActionResult Index()
         {
@@ -19,7 +20,8 @@ namespace WebApplication1.Controllers
         {
             string flowvalue = Request["testSelect"];
             flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
-            WorkEditorController.flow = flowdefinition;
+            flow.id_flow = flowdefinition.id_flowDefinition;
+            WorkEditorController.flow = flow;
             return RedirectToAction("Index", "WorkEditor"); ;
         }
     }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication1
 {
-    public class Attribute
+    public class Attributes
     {
         
         public virtual int Id_attribute { get; set; }
