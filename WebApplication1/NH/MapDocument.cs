@@ -18,9 +18,9 @@ namespace WebApplication1
             Property(x => x.Data, m => { m.Column("Data"); m.Length(Int32.MaxValue); });
             Property(x => x.ContentType, m => { m.Column("ContentType"); });
             Property(x => x.Name ,m => { m.Column("name"); });
-            ManyToOne(x => x.Id_flow, m =>
+            ManyToOne(x => x.Id_flowextension, m =>
             {
-                m.Column("id_flow");
+                m.Column("id_flowextension");
             });
         }
     }

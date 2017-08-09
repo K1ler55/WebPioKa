@@ -58,7 +58,7 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Document> docs = session.QueryOver<Document>().Where(p => p.Id_flow.id_flow == flow.id_flowDefinition).List();
+                    IList<Document> docs = session.QueryOver<Document>().Where(p => p.Id_flowextension.id_flow == flow.id_flowDefinition).List();
                     transaction.Commit();
                     return docs;
                 }

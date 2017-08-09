@@ -28,6 +28,7 @@ namespace WebApplication1.Controllers
                     
                     TasksController.user = u;
                     PickFlowController.user = u;
+                    WorkEditorController.user = u;
                     return RedirectToAction("Index", "Account");
                 }
             }

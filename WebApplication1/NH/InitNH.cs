@@ -41,7 +41,8 @@ namespace WebApplication1.NH
               typeof(MapPosition),
               typeof(MapStep),
               typeof(MapStepCondition),
-              typeof(MapFlow)
+              typeof(MapFlow),
+              typeof(MapFlowExtension)
 
 
             });

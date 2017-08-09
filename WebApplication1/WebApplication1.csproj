@@ -152,6 +152,7 @@
     <Compile Include="Class\Document.cs" />
     <Compile Include="Class\Flow.cs" />
     <Compile Include="Class\FlowDefinition.cs" />
+    <Compile Include="Class\FlowExtension.cs" />
     <Compile Include="Class\ListElement.cs" />
     <Compile Include="Class\Position.cs" />
     <Compile Include="Class\Step.cs" />
@@ -172,6 +173,7 @@
     <Compile Include="NH\MapDocument.cs" />
     <Compile Include="NH\MapFlow.cs" />
     <Compile Include="NH\MapFlowDefinition.cs" />
+    <Compile Include="NH\MapFlowExtension.cs" />
     <Compile Include="NH\MapListElement.cs" />
     <Compile Include="NH\MapPosition.cs" />
     <Compile Include="NH\MapStep.cs" />

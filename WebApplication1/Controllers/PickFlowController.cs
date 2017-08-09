@@ -12,11 +12,15 @@ namespace WebApplication1.Controllers
         public static User user;
         public ActionResult Index()
         {
+            if (user == null) return RedirectToAction("Index", "Login");
+            return View();            
+        }
+        public ActionResult GetFlow()
+        {
             string flowvalue = Request["testSelect"];
             flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
             WorkEditorController.flow = flowdefinition;
-
-            return View("Index","WorkEditor");
+            return RedirectToAction("Index", "WorkEditor"); ;
         }
     }
 }
