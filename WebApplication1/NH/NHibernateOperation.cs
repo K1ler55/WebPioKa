@@ -39,20 +39,20 @@ namespace WebApplication1.NH
             }
         }
 
-        public Flow GetUserFlow ( Position position)
+        public FlowDefinition GetUserFlow ( Position position)
         {
             using (ISession session = InitNH.OppenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    Flow flow = session.QueryOver<Flow>().Where(p => p.Flow_id == position.Id_flow.Flow_id).List().First();
+                    FlowDefinition flow = session.QueryOver<FlowDefinition>().Where(p => p.id_flow == position.Id_flow.id_flow).List().First();
                     transaction.Commit();
                     return flow;
                 }
             }
         }
 
-        public IList<Document> GetUserDocuments(Flow flow)
+        public IList<Document> GetUserDocuments(FlowDefinition flow)
         {
             using (ISession session = InitNH.OppenSession())
             {

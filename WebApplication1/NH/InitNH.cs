@@ -36,7 +36,7 @@ namespace WebApplication1.NH
               typeof(MapUser),
               typeof(MapAttribute),
               typeof(MapDocument),
-              typeof(MapFlow),
+              typeof(MapFlowDefinition),
               typeof(MapListElement),
               typeof(MapPosition),
               typeof(MapStep),

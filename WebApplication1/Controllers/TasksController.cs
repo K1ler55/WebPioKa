@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
 
             Position pos = operation.GetUserPosition(user);
-            Flow flow = operation.GetUserFlow(pos);
+            FlowDefinition flow = operation.GetUserFlow(pos);
             IList<Document> docs = operation.GetUserDocuments(flow);
 
             ViewBag.Documents = (docs == null ? new List<Document>() : docs);

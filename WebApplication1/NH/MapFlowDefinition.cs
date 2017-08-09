@@ -8,11 +8,11 @@ using NHibernate.Mapping.ByCode.Conformist;
 
 namespace WebApplication1
 {
-    class MapFlow : ClassMapping<Flow>
+    class MapFlowDefinition : ClassMapping<FlowDefinition>
     {
-        public MapFlow()
+        public MapFlowDefinition()
         {
-            Table("WorkFlow");
+            Table("WorkFlowDefinition");
             Id(x => x.id_flow, m => { m.Column("id_flow"); m.Generator(Generators.Identity); });
             Property(x => x.Flow_name, m => { m.Column("flow_name"); });
             Property(x => x.Flow_description, m => { m.Column("flow_description"); });

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication1
 {
-    public class Flow
+    public class FlowDefinition
     {
         public virtual int id_flow { get; set; }
         public virtual string Flow_name { get; set; }

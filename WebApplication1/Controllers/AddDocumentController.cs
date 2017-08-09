@@ -10,7 +10,7 @@ namespace WebApplication1.Controllers
     public class AddDocumentController : Controller
     {
         public static User user;
-        public static Flow flow;
+        public static FlowDefinition flow;
         // GET: AddDocument
         public ActionResult Index()
         {
@@ -29,9 +29,9 @@ namespace WebApplication1.Controllers
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
             newDocument.Id_user = user;
 
-            IList<Flow> flowlist = new List<Flow>();
-            flowlist = operation.GetList<Flow>();
-            foreach (Flow i in flowlist)
+            IList<FlowDefinition> flowlist = new List<FlowDefinition>();
+            flowlist = operation.GetList<FlowDefinition>();
+            foreach (FlowDefinition i in flowlist)
             {
                 if (i.id_flow == Int32.Parse(flowvalue))
                 {
