@@ -1,10 +1,11 @@
-﻿@{
-    Layout = null;
+﻿@{ 
+ Layout = null;
 }
 
 
-@using (Html.BeginForm("Index", "PickFlow", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{   <input type="text" id="FlowText" name="FlowName"/>
+@using (Html.BeginForm("GetFlow", "PickFlow", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   <input type="text" id="testFlow" name="testFlow" />
+      string Flowname = Request["testFlow"]; 
     <select id="testSelect" name="testSelect"
             onclick="optclicked">
         @{ WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
@@ -17,16 +18,30 @@
                 <option value="@i.id_flowDefinition">@i.Flow_name</option>
             }
             FlowValue = Request["testSelect"];
-</select>      
-        }
-}
 
-    
-    <input type="text" id="FlowName" name="FlowName"
-           onchange="textchanged"
-           
+        }
+    </select>
+    <select id="PositionSelect" name="PositionSelect"
+            onclick="optclicked">
+        @{ 
+            Position position = new Position();
+            string PositionValue;
+            IList<Position> positionlist = new List<Position>();
+            positionlist = operation.GetList<Position>();
+            foreach (Position i in positionlist)
+            {
+                if (i.Id_flowDefinition.id_flowDefinition == Int32.Parse(FlowValue))
+                {
+                <option value="@i.Id_position">@i.Name</option>
+                    }
+                }
+                PositionValue = Request["PositionSelect"];
+
+            }
+    </select>
+
+
     <input type="submit" />
 
 
             }
-
