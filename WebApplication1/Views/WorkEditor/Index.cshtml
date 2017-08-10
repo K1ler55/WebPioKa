@@ -2,32 +2,36 @@
     Layout = null;
 }
 <h2>Index2</h2>
-@using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("Index", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    
     WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
     Attributes attribute = new Attributes();
-    string FlowValue;
     IList<Attributes> attributelist = new List<Attributes>();
     attributelist = operation.GetList<Attributes>();
     foreach (Attributes i in attributelist)
-        
-    {
-            <input type="text" value="@i.Id_attribute">@i.Id_attribute
-    }
-    FlowValue = Request["testSelect"];
 
+    {
+        if (i.Id_workflow.id_flowDefinition==@ViewBag.pick.id_flowDefinition)
+        {
+
+            <input type="text" value="@i.Name">@i.Id_attribute    
+        }
+    }
 }
 
 
 
 
-
+@using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
    <tr></tr>
     <input type="file" name="uploadFile" />
     <tr>
     </tr>
     <input type="submit" />
+}
 
 
 
-            }

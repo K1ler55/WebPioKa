@@ -3,8 +3,8 @@
 }
 
 
-@using (Html.BeginForm("GetFlow", "PickFlow", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
+@using (Html.BeginForm("Index", "PickFlow", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   <input type="text" id="FlowText" name="FlowName"/>
     <select id="testSelect" name="testSelect"
             onclick="optclicked">
         @{ WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
@@ -14,13 +14,17 @@
             flowlist = operation.GetList<FlowDefinition>();
             foreach (FlowDefinition i in flowlist)
             {
-                <option value="@i.id_flowDefinition">@i.id_flowDefinition</option>
+                <option value="@i.id_flowDefinition">@i.Flow_name</option>
             }
             FlowValue = Request["testSelect"];
-
+</select>      
         }
+}
 
-    </select>
+    
+    <input type="text" id="FlowName" name="FlowName"
+           onchange="textchanged"
+           
     <input type="submit" />
 
 

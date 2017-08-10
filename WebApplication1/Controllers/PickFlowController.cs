@@ -14,14 +14,17 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             if (user == null) return RedirectToAction("Index", "Login");
-            return View();            
+            string flowvalue = Request["testSelect"];
+            flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
+            flow.id_flowdefinition.id_flowDefinition = flowdefinition.id_flowDefinition;
+            WorkEditorController.flowdefinition = flowdefinition;
+            WorkEditorController.flow = flow;
+            return RedirectToAction("Index", "WorkEditor");
+            
         }
         public ActionResult GetFlow()
         {
-            string flowvalue = Request["testSelect"];
-            flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
-            flow.id_flow = flowdefinition.id_flowDefinition;
-            WorkEditorController.flow = flow;
+           
             return RedirectToAction("Index", "WorkEditor"); ;
         }
     }
