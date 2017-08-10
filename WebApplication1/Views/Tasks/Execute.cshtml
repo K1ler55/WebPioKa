@@ -10,8 +10,10 @@
 }
 else
 {
-<h2>Execute</h2>
+<h2>Edytujesz Flow</h2>
+<h3>@ViewBag.Flow.Name</h3>
 
-<h2>@ViewBag.Id</h2>
-<h3>Witam wprowadzasz zmiany w pliku @ViewBag.Number</h3>
+<button type="button" onclick="location.href='@Url.Action("Change", "Tasks", new { id = @ViewBag.Flow.id_flow })' ">Wykonaj to</button><br />
+<br />
+
 }

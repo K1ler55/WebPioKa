@@ -19,7 +19,16 @@ namespace WebApplication1.Controllers
             
             Dictionary<Position, IList<Flow>> map = new Dictionary<Position, IList<Flow>>();
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
-            IList<Position> positions = operation.GetUserPosition(user);
+
+            IList<Task> tasks = operation.GetUserTasks(user);
+            List<int> numbers = new List<int>();
+
+            foreach(Task t in tasks)
+            {
+                numbers.Add(t.Id_position.Id_position);
+            }
+
+            IList<Position> positions = operation.GetUserPositions(numbers);
             
             foreach(Position p in positions)
             {
@@ -36,16 +45,19 @@ namespace WebApplication1.Controllers
             if (user == null) return RedirectToAction("Index", "Login");
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
 
-            IList<User> users = operation.GetUsersByPosition(position);
+            List<int> users = operation.GetUsersByPosition(position);
+            if (!users.Contains(user.Id_user)) ViewBag.Result = 403;
 
-            /*if (user.Id_position.Id_position != position)
-            {
-                ViewBag.Result = 403;
-            }*/            
-            
-            
+            Position p = operation.FindPositionById(position);
+            IList<Flow> flows = operation.GetUserActiveFlows(p);
+            ViewBag.Flow = flows[number];
 
-            
+            return View();
+        }
+
+        public ActionResult Change()
+        {
+
             return View();
         }
     }

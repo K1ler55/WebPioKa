@@ -227,6 +227,7 @@
     <Content Include="Views\Tasks\Execute.cshtml" />
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\PickFlow\Index.cshtml" />
+    <Content Include="Views\Tasks\Change.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
