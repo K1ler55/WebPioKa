@@ -63,7 +63,6 @@ namespace WebApplication1.NH
                     IList<Position> positionlist = session.QueryOver<Position>().WhereRestrictionOn(x => x.Id_position).IsIn(list).List();
                     transaction.Commit();
                     return positionlist;
-
                 }
             }
 
@@ -95,6 +94,33 @@ namespace WebApplication1.NH
                     Position p = session.QueryOver<Position>().Where(x => x.Id_position == id).List().First();
                     transaction.Commit();
                     return p;
+                }
+            }
+        }
+
+        public Flow FindFlowById(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Flow f = session.QueryOver<Flow>().Where(x => x.id_flow == id).List().First();
+                    transaction.Commit();
+                    return f;
+                }
+            }
+        }         
+
+
+        public Step FindStep(Position position)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Step step = session.QueryOver<Step>().Where(x => x.Start_position_id.Id_position == position.Id_position).List().First();
+                    transaction.Commit();
+                    return step;
                 }
             }
         }

@@ -39,8 +39,10 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Execute(int position,int number)
+        public ActionResult Execute(int number)
         {
+            string id = (string)RouteData.Values["id"];
+            int position = Int32.Parse(id);
             User user = (User)Session["users"];
             if (user == null) return RedirectToAction("Index", "Login");
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
@@ -50,14 +52,32 @@ namespace WebApplication1.Controllers
 
             Position p = operation.FindPositionById(position);
             IList<Flow> flows = operation.GetUserActiveFlows(p);
-            ViewBag.Flow = flows[number];
+            foreach(Flow f in flows)
+            {
+                if (f.id_flow == number) ViewBag.Flow = f;
+            }
+            
 
             return View();
         }
 
         public ActionResult Change()
         {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
 
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+
+            string id = (string)RouteData.Values["id"];
+            int f= Int32.Parse(id);
+            Flow flow = operation.FindFlowById(f);
+
+            Position p = operation.FindPositionById(flow.id_position.Id_position);
+
+            Step step = operation.FindStep(p);            
+
+            flow.id_position = step.End_position_id;
+            operation.Update<Flow>(flow);
             return View();
         }
     }
