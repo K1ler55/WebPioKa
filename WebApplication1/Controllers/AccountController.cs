@@ -13,6 +13,8 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             //informacje o uzytkowniku jakies pierdolki
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
             return View();
         }
         public ActionResult PickFlow()

@@ -17,19 +17,19 @@ namespace WebApplication1
             Property(x => x.Name, m => { m.Column("name"); });
             Property(x => x.Surname, m => { m.Column("surname"); });
             Property(x => x.Permission, m => { m.Column("permission"); });
-            Property(x => x.Password, m => { m.Column("password"); });
+            Property(x => x.Password, m => { m.Column("password"); });           
 
-            ManyToOne(x => x.Id_position, m =>
-            {
-                m.Column("id_position");
-            });
             Bag(x => x.FlowList, m =>
             {
                 m.Inverse(true); m.Key(k => k.Column("id_user"));
 
             }, r => r.OneToMany(x => x.Class(typeof(Flow))));
 
+            Bag(x => x.TaskList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_user"));
 
+            }, r => r.OneToMany(x => x.Class(typeof(Task))));
         }
     }
 }

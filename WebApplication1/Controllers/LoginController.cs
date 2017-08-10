@@ -26,9 +26,12 @@ namespace WebApplication1.Controllers
                 if ((u.Name.Equals( Marcin.Name)) && (u.Password.Equals( Marcin.Password)))
                 {
                     
-                    TasksController.user = u;
+                    //TasksController.user = u;
                     PickFlowController.user = u;
-                    WorkEditorController.user = u;
+                    WorkEditorController.user = u;                    
+                    
+                    Session["users"] = u;
+
                     return RedirectToAction("Index", "Account");
                 }
             }

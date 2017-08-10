@@ -3,15 +3,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Active Tasks to do</h2>
+<h2>Twoje pozycje</h2>
 
-@foreach (KeyValuePair<Position, IList<Step>> item in ViewBag.Map)
+
+@foreach (KeyValuePair<Position, IList<Flow>> item in ViewBag.Map)
 {
     <h2>@item.Key.Name</h2><br/>
-    
+
+    if (item.Value.Count == 0)
+    {
+        <h2>Nie masz tutaj zadań do wykonania</h2>
+    }
+
     for (int i = 0; i < item.Value.Count; i++)
     {
-        <h3>@item.Value[i].Description</h3>
+        <h3>@item.Value[i].Name</h3>
         <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { position = item.Key.Id_position, number = i })' ">Wykonaj to</button><br />
         <br/>
     }

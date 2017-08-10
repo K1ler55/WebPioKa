@@ -13,9 +13,9 @@ namespace WebApplication1
         public virtual IList<Step> StartStepList { get ; set; }
         public virtual IList<Step> EndStepList { get ; set ; }
         public virtual IList<Access> Accesslist { get ; set ; }
-        public virtual IList<User> UserList { get; set; }
+        
         public virtual IList<Flow> FlowList { get; set; }
-
+        public virtual IList<Task> TaskList { get; set; }
 
     }
 }

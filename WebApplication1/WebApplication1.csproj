@@ -157,6 +157,7 @@
     <Compile Include="Class\Position.cs" />
     <Compile Include="Class\Step.cs" />
     <Compile Include="Class\StepCondition.cs" />
+    <Compile Include="Class\Task.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\PickFlowController.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="NH\MapPosition.cs" />
     <Compile Include="NH\MapStep.cs" />
     <Compile Include="NH\MapStepCondition.cs" />
+    <Compile Include="NH\MapTask.cs" />
     <Compile Include="NH\MapUser.cs" />
     <Compile Include="NH\NHibernateOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -3,6 +3,15 @@
     ViewBag.Title = "Execute";
 }
 
+@if (ViewBag.Result == 403)
+{
+    <h1>403</h1>
+    <h2>Nie masz dostępu do podanego zasobu</h2>
+}
+else
+{
 <h2>Execute</h2>
 
+<h2>@ViewBag.Id</h2>
 <h3>Witam wprowadzasz zmiany w pliku @ViewBag.Number</h3>
+}

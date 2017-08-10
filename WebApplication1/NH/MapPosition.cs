@@ -33,17 +33,19 @@ namespace WebApplication1
 
             }, r => r.OneToMany(x => x.Class(typeof(Step))));
 
-            Bag(x => x.UserList, m =>
-            {
-                m.Inverse(true); m.Key(k => k.Column("id_user"));
-
-            }, r => r.OneToMany(x => x.Class(typeof(User))));
+           
 
             Bag(x => x.FlowList, m =>
             {
                 m.Inverse(true); m.Key(k => k.Column("id_flow"));
 
             }, r => r.OneToMany(x => x.Class(typeof(Flow))));
+
+            Bag(x => x.TaskList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_task"));
+
+            }, r => r.OneToMany(x => x.Class(typeof(Task))));
 
 
         }

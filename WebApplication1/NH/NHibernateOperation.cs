@@ -11,9 +11,6 @@ namespace WebApplication1.NH
 {
     public class NHibernateOperation
     {
-
-
-
         public void AddElement<T>(T element)
         {
             using (ISession session = InitNH.OppenSession())
@@ -32,7 +29,7 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Position> pos = session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List();
+                    IList<Position> pos = new List<Position>();// session.QueryOver<Position>().Where(type => type.Id_position == user.Id_position.Id_position).List();
                     transaction.Commit();
                     return pos;
                 }
@@ -52,6 +49,30 @@ namespace WebApplication1.NH
             }
         }
 
+        public IList<Flow> GetUserActiveFlows( Position position)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Flow> flows = session.QueryOver<Flow>().Where(f => f.id_position.Id_position == position.Id_position).List();
+                    transaction.Commit();
+                    return flows;
+                }
+            }
+        }
+
+        public IList<User> GetUsersByPosition(int position)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<User> users = new List<User>();// session.QueryOver<User>().Where(u => u.Id_position.Id_position == position).List();
+                    return users;
+                }
+            }
+        }
         
 
         public IList<Step> GetUserTasks (Position pos) 
