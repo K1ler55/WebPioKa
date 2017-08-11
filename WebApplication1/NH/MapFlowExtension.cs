@@ -25,6 +25,11 @@ namespace WebApplication1
             {
                 m.Column("id_flow");
             });
+            Bag(x => x.documentList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_flow"));
+
+            }, r => r.OneToMany(x => x.Class(typeof(Document))));
         }
     }
 }

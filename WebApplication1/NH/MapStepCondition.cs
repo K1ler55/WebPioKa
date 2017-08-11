@@ -14,9 +14,14 @@ namespace WebApplication1
             Table("StepCondition");
             Id(x => x.Id_stepcondition, m => { m.Column("id_stepcondition"); m.Generator(Generators.Identity); });
             Property(x => x.Condition, m => { m.Column("condition"); });
+            Property(x => x.Operator, m => { m.Column("operator"); });
             ManyToOne(x => x.Id_step, m =>
             {
                 m.Column("id_step");
+            });
+            ManyToOne(x => x.id_position, m =>
+            {
+                m.Column("id_position");
             });
         }
     }

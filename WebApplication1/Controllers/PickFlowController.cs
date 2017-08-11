@@ -25,6 +25,8 @@ namespace WebApplication1.Controllers
             IList<Position> positionlist = new List<Position>();
             flow.id_position=operation.GetPositionidFlow(Int32.Parse(flowvalue));
             flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
+
+
             WorkEditorController.flowdefinition = flowdefinition;
             flow.id_flowdefinition = flowdefinition;
             flow.Name = flowname;

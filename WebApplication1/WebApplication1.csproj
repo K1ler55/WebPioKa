@@ -228,6 +228,8 @@
     <Content Include="Views\Tasks\Index.cshtml" />
     <Content Include="Views\PickFlow\Index.cshtml" />
     <Content Include="Views\Tasks\Change.cshtml" />
+    <Content Include="Views\WorkEditor\Add.cshtml" />
+    <Content Include="Views\WorkEditor\GetAttributeid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

@@ -3,7 +3,7 @@
 }
 
 
-@using (Html.BeginForm("GetFlow", "PickFlow", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("GetFlow", "PickFlow", FormMethod.Post))
 {   <input type="text" id="testFlow" name="testFlow" />
       string Flowname = Request["testFlow"]; 
     <select id="testSelect" name="testSelect"

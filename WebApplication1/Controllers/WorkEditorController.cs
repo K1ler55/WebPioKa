@@ -9,31 +9,19 @@ namespace WebApplication1.Controllers
 {
     public class WorkEditorController : Controller
     {
-
+        NH.NHibernateOperation operation = new NH.NHibernateOperation();
         public static FlowDefinition flowdefinition;
         public static User user;
         public static Flow flow;
+        Attributes attribute = new Attributes();
         FlowExtension flowextension = new FlowExtension();
         
         // GET: AddDocument
         public ActionResult Index()
-        {
-            List<string> fvalue1 = new List<string>();
-            List<string> fida1 = new List<string>();
-            string number = Request["number123"];
-            int k = 0;
-            k = Int32.Parse(number);
-            for (int i = 0; i <= k; i++)
-            {
-               string s = "value" + i;
-               string  attributeid = "id" + i;
-               fvalue1.Add(Request[s]);
-               fida1.Add(Request[attributeid]);
-            }
-            ViewBag.List = fvalue1;
+        { 
+            if (user == null) return RedirectToAction("Index", "Login");
             
             ViewBag.pick = flowdefinition;
-            if (user == null) return RedirectToAction("Index", "Login");
             return View();
         }
 
@@ -45,7 +33,7 @@ namespace WebApplication1.Controllers
             
            // ViewData["MyFlow"] = flowdefinition;
             Document newDocument = new Document();
-            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            
                 
             if (uploadFile != null)
             {
@@ -82,7 +70,35 @@ namespace WebApplication1.Controllers
         }
 
 
+        public ActionResult GetAttributeid()
+        {
+            IList<Attributes> attributelist = new List<Attributes>();
+            attributelist = operation.GetList<Attributes>();
 
+            for (int i = 0; i < attributelist.Count; i++)
+            {
+
+                Attributes attribute = attributelist[i];
+                if (attribute.Id_workflow.id_flowDefinition == flowdefinition.id_flowDefinition)
+                {
+                    String s = "value" + i;
+                    String attributeid = "id" + i;
+                    string ida = Request[attributeid];
+                    string value = Request[s];
+                     flowextension.id_attribute= operation.GetAttributeid(Int32.Parse(ida));
+                     flowextension.Value = value;
+                     flowextension.id_flow = flow;
+                    
+                 operation.AddElement<FlowExtension>(flowextension);
+
+                }
+            }
+            
+            
+
+            
+            return View();
+        }
     }
 
 

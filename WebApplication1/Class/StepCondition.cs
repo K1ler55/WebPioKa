@@ -10,5 +10,8 @@ namespace WebApplication1
         public virtual int Id_stepcondition { get; set; }
         public virtual Step Id_step { get; set; }
         public virtual string Condition { get; set; }
+        public virtual Position id_position { get; set; }
+        
+        public virtual string Operator { get; set; }
     }
 }

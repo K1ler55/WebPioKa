@@ -37,7 +37,7 @@ namespace WebApplication1
 
             Bag(x => x.FlowList, m =>
             {
-                m.Inverse(true); m.Key(k => k.Column("id_flow"));
+                m.Inverse(true); m.Key(k => k.Column("id_position"));
 
             }, r => r.OneToMany(x => x.Class(typeof(Flow))));
 
@@ -46,6 +46,11 @@ namespace WebApplication1
                 m.Inverse(true); m.Key(k => k.Column("id_task"));
 
             }, r => r.OneToMany(x => x.Class(typeof(Task))));
+            Bag(x => x.StepConditionList, m =>
+            {
+                m.Inverse(true); m.Key(k => k.Column("id_position"));
+
+            }, r => r.OneToMany(x => x.Class(typeof(StepCondition))));
 
 
         }

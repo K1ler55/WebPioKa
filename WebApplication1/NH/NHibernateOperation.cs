@@ -103,6 +103,24 @@ namespace WebApplication1.NH
             }
 
         }
+        public Attributes GetAttributeid(int id)
+        {
+
+            using (ISession session = InitNH.OppenSession())
+            {
+
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+
+                    Attributes positionlist = session.QueryOver<Attributes>().Where(x => x.Id_attribute == id).List().First();
+                    transaction.Commit();
+
+                    return positionlist;
+
+                }
+            }
+
+        }
 
         public Position FindPositionById(int id)
         {
