@@ -96,6 +96,7 @@ namespace WebApplication1.NH
 
                     Position positionlist = session.QueryOver<Position>().Where(x => x.Id_position == id).List().First() ;
                     transaction.Commit();
+                    
                     return positionlist;
 
                 }

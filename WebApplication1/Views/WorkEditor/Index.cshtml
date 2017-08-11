@@ -7,32 +7,39 @@
 {
 
     WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
-    Attributes attribute = new Attributes();
     IList<Attributes> attributelist = new List<Attributes>();
     IList<FlowExtension> FlowExtValue = new List<FlowExtension>();
-    
+    List<string> fvalue = new List<string>();
+    List<string> fida = new List<string>();
     attributelist = operation.GetList<Attributes>();
-    foreach (Attributes i in attributelist)
+    int n = 0;
+    string k;
+    for (int i = 0; i < attributelist.Count; i++)
     {
-        if (i.Id_workflow.id_flowDefinition==@ViewBag.pick.id_flowDefinition)
+
+        Attributes attribute = attributelist[i];
+        if (attribute.Id_workflow.id_flowDefinition == @ViewBag.pick.id_flowDefinition)
         {
+            String s = "value" + i;
+            String attributeid = "id" + i;
 
-            <input type="text" id="attribute" name="attribute "value="@i.Name">@i.Id_attribute 
-
+            <input type="text" id=s name=s value="@attribute.Name" >
+            <input type="hidden" id=attributeid name=attributeid value="@attribute.Id_attribute" />
+            fvalue.Add(Request[s]);
+            fida.Add(Request[attributeid]);
+            n++;
         }
+
+
+
     }
-    foreach( FlowExtension i in FlowExtValue)
+    <input type="hidden" id="number123" name="number123" value="@n"/>
+    k = Request["number123"];
+    foreach (String s in ViewBag.List)
     {
-        
     }
-
-
-
-
-
-@using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-   <tr></tr>
+}
+@using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" })) { <tr></tr>
     <input type="file" name="uploadFile" />
     <tr>
     </tr>

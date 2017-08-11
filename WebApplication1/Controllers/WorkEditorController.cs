@@ -13,10 +13,25 @@ namespace WebApplication1.Controllers
         public static FlowDefinition flowdefinition;
         public static User user;
         public static Flow flow;
+        FlowExtension flowextension = new FlowExtension();
         
         // GET: AddDocument
         public ActionResult Index()
         {
+            List<string> fvalue1 = new List<string>();
+            List<string> fida1 = new List<string>();
+            string number = Request["number123"];
+            int k = 0;
+            k = Int32.Parse(number);
+            for (int i = 0; i <= k; i++)
+            {
+               string s = "value" + i;
+               string  attributeid = "id" + i;
+               fvalue1.Add(Request[s]);
+               fida1.Add(Request[attributeid]);
+            }
+            ViewBag.List = fvalue1;
+            
             ViewBag.pick = flowdefinition;
             if (user == null) return RedirectToAction("Index", "Login");
             return View();
