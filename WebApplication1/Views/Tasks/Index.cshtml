@@ -19,7 +19,7 @@
     for (int i = 0; i < item.Value.Count; i++)
     {
         <h3>@item.Value[i].Name</h3>
-        <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { position = item.Key.Id_position, number = i })' ">Wykonaj to</button><br />
+        <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { id = item.Key.Id_position, number = item.Value[i].id_flow })' ">Wykonaj to</button><br />
         <br/>
     }
 }

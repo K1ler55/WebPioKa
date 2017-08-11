@@ -22,13 +22,14 @@ namespace WebApplication1.Controllers
         {
             string flowvalue = Request["testSelect"];
             string flowname =  Request["testFlow"];
-            string positionvalue = Request["PositionSelect"];
+            IList<Position> positionlist = new List<Position>();
+            flow.id_position=operation.GetPositionidFlow(Int32.Parse(flowvalue));
             flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
             WorkEditorController.flowdefinition = flowdefinition;
             flow.id_flowdefinition = flowdefinition;
             flow.Name = flowname;
             flow.id_user = user;
-            flow.id_position.Id_position = Int32.Parse(positionvalue);
+            
             operation.AddElement<Flow>(flow);
             return RedirectToAction("Index", "WorkEditor"); ;
         }

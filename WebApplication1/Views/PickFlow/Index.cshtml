@@ -21,24 +21,7 @@
 
         }
     </select>
-    <select id="PositionSelect" name="PositionSelect"
-            onclick="optclicked">
-        @{ 
-            Position position = new Position();
-            string PositionValue;
-            IList<Position> positionlist = new List<Position>();
-            positionlist = operation.GetList<Position>();
-            foreach (Position i in positionlist)
-            {
-                if (i.Id_flowDefinition.id_flowDefinition == Int32.Parse(FlowValue))
-                {
-                <option value="@i.Id_position">@i.Name</option>
-                    }
-                }
-                PositionValue = Request["PositionSelect"];
-
-            }
-    </select>
+  
 
 
     <input type="submit" />
