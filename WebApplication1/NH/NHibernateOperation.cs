@@ -84,6 +84,24 @@ namespace WebApplication1.NH
             }
             
         }
+        
+            public  Position GetPositionidFlow(int id)
+        {
+
+            using (ISession session = InitNH.OppenSession())
+            {
+
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+
+                    Position positionlist = session.QueryOver<Position>().Where(x => x.Id_position == id).List().First() ;
+                    transaction.Commit();
+                    return positionlist;
+
+                }
+            }
+
+        }
 
         public Position FindPositionById(int id)
         {

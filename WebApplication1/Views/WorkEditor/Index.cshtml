@@ -5,22 +5,27 @@
 
 @using (Html.BeginForm("Index", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    
+
     WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
     Attributes attribute = new Attributes();
     IList<Attributes> attributelist = new List<Attributes>();
+    IList<FlowExtension> FlowExtValue = new List<FlowExtension>();
+    
     attributelist = operation.GetList<Attributes>();
     foreach (Attributes i in attributelist)
-
     {
         if (i.Id_workflow.id_flowDefinition==@ViewBag.pick.id_flowDefinition)
         {
 
-            <input type="text" value="@i.Name">@i.Id_attribute 
-            FlowValue
+            <input type="text" id="attribute" name="attribute "value="@i.Name">@i.Id_attribute 
+
         }
     }
-}
+    foreach( FlowExtension i in FlowExtValue)
+    {
+        
+    }
+
 
 
 
