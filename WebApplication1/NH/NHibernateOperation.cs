@@ -54,6 +54,19 @@ namespace WebApplication1.NH
             }
         }
 
+        public Document GetDocumentById(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Document doc = session.QueryOver<Document>().Where(x => x.Id_document == id).List().First();
+                    transaction.Commit();
+                    return doc;
+                }
+            }
+        }
+
         public IList<Position> GetUserPositions(List<int> list)        {
             
             using (ISession session = InitNH.OppenSession())            {
@@ -146,8 +159,33 @@ namespace WebApplication1.NH
                     return f;
                 }
             }
-        }         
+        }  
+        
+        public IList<Attributes> GetAttributesByFlow(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Id_workflow.id_flowDefinition == id).List();
+                    transaction.Commit();
+                    return list;
+                }
+            }
+        }
 
+        public IList<ListElement> GetAttributeList(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<ListElement> list = session.QueryOver<ListElement>().Where(x => x.Id_attribute.Id_attribute == id).List();
+                    transaction.Commit();
+                    return list;
+                }
+            }
+        }
 
         public Step FindStep(Position position)
         {

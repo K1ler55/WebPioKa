@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Xml;
+
 
 namespace WebApplication1.Controllers
 {
@@ -35,7 +39,23 @@ namespace WebApplication1.Controllers
                 map.Add(p, operation.GetUserActiveFlows(p));
             }
 
+            IList<Attributes> list = operation.GetAttributesByFlow(70);
+
+            List<IList<ListElement>> dict = new List<IList<ListElement>>();
+
+            foreach(Attributes a in list)
+            {
+                if (a.Type.Equals("list"))
+                {                    
+                    dict.Add(operation.GetAttributeList(a.Id_attribute));
+                }
+            }
+            Document doc = operation.GetDocumentById(15);
+            byte[] data = doc.Data;
+
             ViewBag.Map = map;
+            ViewBag.List = list;
+            ViewBag.Attr = dict;
             return View();
         }
 
@@ -56,10 +76,32 @@ namespace WebApplication1.Controllers
             {
                 if (f.id_flow == number) ViewBag.Flow = f;
             }
+
+            Document doc = operation.GetDocumentById(12);
+            byte[] data = doc.Data;
+            string str = System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
+            IHtmlString html = new HtmlString(str);
+
             
 
+
+
+
+            ViewBag.Tekst = str;
             return View();
         }
+
+        public static string ConvertHexToString(String hexInput, System.Text.Encoding encoding)
+        {
+            int numberChars = hexInput.Length;
+            byte[] bytes = new byte[numberChars / 2];
+            for (int i = 0; i < numberChars; i += 2)
+            {
+                bytes[i / 2] = Convert.ToByte(hexInput.Substring(i, 2), 16);
+            }
+            return encoding.GetString(bytes);
+        }
+
 
         public ActionResult Change()
         {
