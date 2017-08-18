@@ -35,10 +35,13 @@
     }
 }
 
+
+
 @Html.DevExpress().FormLayout(settings =>
 {
     settings.Name = "formLayout";
-    settings.EncodeHtml = false;
+    settings.EncodeHtml = false;   
+
 
     var groupItem = settings.Items.AddGroupItem(itemSettings =>
     {
@@ -74,12 +77,8 @@
         }
     }
 
-
-
-
-
-
-
+    DevExpress.Utils.Serializing.XmlXtraSerializer serializer = new DevExpress.Utils.Serializing.XmlXtraSerializer();
+    serializer.DeserializeObject(this, Server.MapPath("~/App_Data/Test.xml"), "Test");
 
 }).GetHtml()
 

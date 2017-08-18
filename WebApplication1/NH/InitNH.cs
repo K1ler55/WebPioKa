@@ -40,7 +40,7 @@ namespace WebApplication1.NH
               typeof(MapListElement),
               typeof(MapPosition),
               typeof(MapStep),
-              typeof(MapStepCondition),
+              
               typeof(MapFlow),
               typeof(MapFlowExtension),
               typeof(MapTask)

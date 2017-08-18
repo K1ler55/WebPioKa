@@ -16,7 +16,7 @@ namespace WebApplication1
         
         public virtual IList<Flow> FlowList { get; set; }
         public virtual IList<Task> TaskList { get; set; }
-        public virtual IList<StepCondition> StepConditionList { get; set; }
+        public virtual IList<Step> StepList { get; set; }
 
     }
 }

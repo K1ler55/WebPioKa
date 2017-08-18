@@ -6,10 +6,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Xml;
+using System.Windows.Forms;
+using DevExpress.XtraEditors;
+
 
 
 namespace WebApplication1.Controllers
 {
+    
     public class TasksController : Controller
     {
         // GET: Tasks
@@ -53,9 +57,12 @@ namespace WebApplication1.Controllers
             Document doc = operation.GetDocumentById(15);
             byte[] data = doc.Data;
 
+            string str = System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
             ViewBag.Map = map;
             ViewBag.List = list;
             ViewBag.Attr = dict;
+            ViewBag.String = str;
+            
             return View();
         }
 
