@@ -3,37 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
     public class PickFlowController : Controller
     {
+
         NH.NHibernateOperation operation = new NH.NHibernateOperation();
-        FlowDefinition flowdefinition = new FlowDefinition();
-        Flow flow = new Flow();
-        Position position = new Position();
+        flowdefmodel model = new flowdefmodel();
         public static User user;
+        
         public ActionResult Index()
         {
-            if (user == null) return RedirectToAction("Index", "Login");
-            return View();
+            model.flowdefinitions = operation.GetList<FlowDefinition>();
+            return View(model);
         }
-        public ActionResult GetFlow()
+      
+        public string Pickthisflow(int id)
         {
-            string flowvalue = Request["testSelect"];
-            string flowname =  Request["testFlow"];
-            IList<Position> positionlist = new List<Position>();
-            flow.id_position=operation.GetPositionidFlow(Int32.Parse(flowvalue));
-            flowdefinition.id_flowDefinition = Int32.Parse(flowvalue);
+            id = model.id_flowDefinition;
+            return "Selected flow is: " + id.ToString();
+;        }
 
-
-            WorkEditorController.flowdefinition = flowdefinition;
-            flow.id_flowdefinition = flowdefinition;
-            flow.Name = flowname;
-            flow.id_user = user;
-            
-            operation.AddElement<Flow>(flow);
-            return RedirectToAction("Index", "WorkEditor"); ;
-        }
     }
 }

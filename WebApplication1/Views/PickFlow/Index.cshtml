@@ -1,30 +1,13 @@
-﻿@{ 
+﻿@model  WebApplication1.Models.flowdefmodel
+@{ 
  Layout = null;
 }
 
 
-@using (Html.BeginForm("GetFlow", "PickFlow", FormMethod.Post))
-{   <input type="text" id="testFlow" name="testFlow" />
-      string Flowname = Request["testFlow"]; 
-    <select id="testSelect" name="testSelect"
-            onclick="optclicked">
-        @{ WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
-            FlowDefinition flow = new FlowDefinition();
-            string FlowValue;
-            IList<FlowDefinition> flowlist = new List<FlowDefinition>();
-            flowlist = operation.GetList<FlowDefinition>();
-            foreach (FlowDefinition i in flowlist)
-            {
-                <option value="@i.id_flowDefinition">@i.Flow_name</option>
-            }
-            FlowValue = Request["testSelect"];
+@using (Html.BeginForm("Pickthisflow","Pickflow",FormMethod.Post))
+{
 
-        }
-    </select>
-  
-
-
-    <input type="submit" />
-
-
-            }
+    @Html.DropDownListFor(model=>model.id_flowDefinition,new SelectList(Model.flowdefinitions, "id_flowDefinition"), "Select status",
+    new { @class = "form-control" })
+    <input type="submit" value="Submit"/>
+}

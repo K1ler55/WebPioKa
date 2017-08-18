@@ -176,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\flowdefmodel.cs" />
     <Compile Include="NH\InitNH.cs" />
     <Compile Include="NH\MapAttribute.cs" />
     <Compile Include="NH\MapDocument.cs" />
@@ -242,7 +243,6 @@
     <Content Include="Views\WorkEditor\GetAttributeid.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Views\DoneTasks\" />
   </ItemGroup>
   <ItemGroup>
