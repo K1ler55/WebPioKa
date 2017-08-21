@@ -4,37 +4,29 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
-    public class WorkEditorController : Controller
+    public class DocumentController : Controller
     {
         NH.NHibernateOperation operation = new NH.NHibernateOperation();
-        public static FlowDefinition flowdefinition;
-        public static User user;
-        public static Flow flow;
-        Attributes attribute = new Attributes();
-        FlowExtension flowextension = new FlowExtension();
-        
-        // GET: AddDocument
         public ActionResult Index()
-        { 
-            if (user == null) return RedirectToAction("Index", "Login");
-            
-            
-            return View();
+        {
+            DocumentModel documentmodel = new DocumentModel();
+            documentmodel.id_document = -1;
+            documentmodel.Documents= operation.GetList<Document>();
+            return View(documentmodel);
         }
 
-        
         [HttpPost]
         public ActionResult Add(HttpPostedFileBase uploadFile)
         {
-            
-            
-           // ViewData["MyFlow"] = flowdefinition;
+
+
+            // ViewData["MyFlow"] = flowdefinition;
             Document newDocument = new Document();
-            
-                
+
+
             if (uploadFile != null)
             {
                 string filePath = uploadFile.FileName;
@@ -66,15 +58,15 @@ namespace WebApplication1.Controllers
                     return View("Index", "Account");
                 }
             }
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("Index", "Document");
         }
-        
+        [HttpPost]
+        public FileResult Download(DocumentModel documentmodel)
+        { int id=documentmodel.id_document;
+            Document document = new Document();
+            document= operation.GetDocumentById(id);
+            return File(document.Data, document.ContentType, document.Name);
+        }
+
     }
-
-
-
-
-
-
-
 }

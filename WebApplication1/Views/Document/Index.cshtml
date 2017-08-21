@@ -1,0 +1,18 @@
+﻿@model WebApplication1.Models.DocumentModel
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("Add", "Document", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ <tr></tr>
+    <input type="file" name="uploadFile" />
+    <tr></tr>
+    <input type="submit" />
+}
+@using (Html.BeginForm("Download", "Document", FormMethod.Post))
+{
+
+    @Html.DropDownListFor(Model=>Model.id_document, new SelectList(Model.Documents, "Id_document", "Name"))
+    <input type="submit" value="submit" />
+}
+<h2>Index</h2>
+

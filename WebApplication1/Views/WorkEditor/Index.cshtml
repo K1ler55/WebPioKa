@@ -3,40 +3,6 @@
 }
 <h2>Index2</h2>
 
-@using (Html.BeginForm("GetAttributeid", "WorkEditor", FormMethod.Post))
-{
-
-    WebApplication1.NH.NHibernateOperation operation = new WebApplication1.NH.NHibernateOperation();
-    IList<Attributes> attributelist = new List<Attributes>();
-    IList<FlowExtension> FlowExtValue = new List<FlowExtension>();
-    List<string> fvalue = new List<string>();
-    List<string> fida = new List<string>();
-    attributelist = operation.GetList<Attributes>();
-    int n = 0;
-
-
-    for (int i = 0; i < attributelist.Count; i++)
-    {
-
-        Attributes attribute = attributelist[i];
-        if (attribute.Id_workflow.id_flowDefinition == @ViewBag.pick.id_flowDefinition)
-        {
-            String s = "value"+i;
-            String attributeid = "id" + i;
-            <input type="text" id=@s name=@s value="@attribute.Name" >
-            <input type="hidden" id=@attributeid name=@attributeid value="@attribute.Id_attribute" />
-            string ida = Request[attributeid];
-            string value = Request[s];
-            n++;
-        }
-
-
-
-    }
-    <input type="text" value="@n" id="numb" name="numb" />
-    <input type="submit" name="POTWIERDZ" />
-    
-
 }
 @using (Html.BeginForm("Add", "WorkEditor", FormMethod.Post, new { enctype = "multipart/form-data" })) { <tr></tr>
     <input type="file" name="uploadFile" />
