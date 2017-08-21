@@ -8,8 +8,8 @@ using System.Web.UI;
 using System.Xml;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-
-
+using System.Dynamic;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -23,51 +23,37 @@ namespace WebApplication1.Controllers
         public ActionResult Index()
         {
             User user = (User)Session["users"];
-            if(user == null) return RedirectToAction("Index", "Login");         
-            
-            Dictionary<Position, IList<Flow>> map = new Dictionary<Position, IList<Flow>>();
+            if(user == null) return RedirectToAction("Index", "Login");
+
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
 
             IList<Task> tasks = operation.GetUserTasks(user);
             List<int> numbers = new List<int>();
 
-            foreach(Task t in tasks)
+            foreach (Task t in tasks)
             {
                 numbers.Add(t.Id_position.Id_position);
             }
 
             IList<Position> positions = operation.GetUserPositions(numbers);
-            
-            foreach(Position p in positions)
+
+            Dictionary<Position, IList<Flow>> map = new Dictionary<Position, IList<Flow>>();
+
+            foreach (Position p in positions)
             {
                 map.Add(p, operation.GetUserActiveFlows(p));
             }
+            TaskModel task = new TaskModel();
+            task.Map = map;
+            ViewBag.Task = task;           
 
-            IList<Attributes> list = operation.GetAttributesByFlow(70);
-
-            List<IList<ListElement>> dict = new List<IList<ListElement>>();
-
-            foreach(Attributes a in list)
-            {
-                if (a.Type.Equals("list"))
-                {                    
-                    dict.Add(operation.GetAttributeList(a.Id_attribute));
-                }
-            }
-            Document doc = operation.GetDocumentById(15);
-            byte[] data = doc.Data;
-
-            string str = System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
-            ViewBag.Map = map;
-            ViewBag.List = list;
-            ViewBag.Attr = dict;
-            ViewBag.String = str;
-            
             return View();
-        }
+            
+        }        
 
         public ActionResult Execute(int number)
-        {
+        {          
+            
             string id = (string)RouteData.Values["id"];
             int position = Int32.Parse(id);
             User user = (User)Session["users"];
@@ -79,23 +65,54 @@ namespace WebApplication1.Controllers
 
             Position p = operation.FindPositionById(position);
             IList<Flow> flows = operation.GetUserActiveFlows(p);
-            foreach(Flow f in flows)
+            Flow flow = new Flow();
+            foreach (Flow f in flows)
             {
-                if (f.id_flow == number) ViewBag.Flow = f;
+                if (f.id_flow == number)
+                {
+                    ViewBag.Flow = f;
+                    flow = f;
+                    break;
+                }
             }
 
-            Document doc = operation.GetDocumentById(12);
-            byte[] data = doc.Data;
-            string str = System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
-            IHtmlString html = new HtmlString(str);
+            IList<Attributes> attrList = operation.GetAttributesByFlow(flow.id_flowdefinition.id_flowDefinition);
+            FullFlowModel model = new FullFlowModel();
+            model.list = new List<FlowModel<string>>();
+            model.list_int = new List<FlowModel<int>>();
+            model.values = new List<string>();
+            foreach (Attributes a in attrList)
+            {
+                Access acc = operation.GetAttributeAccess(position, a.Id_attribute);
+                if(acc.Read_property==1 && (acc.Required_change==1 || acc.Optional_change == 1))
+                {
+                    if (a.Type.Equals("int"))
+                    {
+                        FlowModel<int> f = new FlowModel<int>();
+                        f.name = a.Name;
+                        f.required = acc.Required_change;
+                        f.type = a.Type;
+                        model.list_int.Add(f);
+                    } 
+                    else
+                    {
+                        FlowModel<string> f = new FlowModel<string>();
+                        f.name = a.Name;
+                        f.required = acc.Required_change;
+                        f.type = a.Type;
+                        model.list.Add(f);
+                    }
+                    
+                } else if(acc.Read_property ==1)
+                {
+                    FlowExtension ext = operation.FindExtension(flow.id_flow, a.Id_attribute);
+                    if(ext!=null) model.values.Add(a.Id_attribute.ToString() + " = "+ext.Value);
+                }
+                
+            }
+            ViewBag.Test = model;
 
-            
-
-
-
-
-            ViewBag.Tekst = str;
-            return View();
+            return View(model);
         }
 
         public static string ConvertHexToString(String hexInput, System.Text.Encoding encoding)
@@ -109,15 +126,15 @@ namespace WebApplication1.Controllers
             return encoding.GetString(bytes);
         }
 
-
-        public ActionResult Change()
+        [HttpPost]
+        public ActionResult Change(FullFlowModel model)
         {
             User user = (User)Session["users"];
             if (user == null) return RedirectToAction("Index", "Login");
 
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
 
-            string id = (string)RouteData.Values["id"];
+            /*string id = (string)RouteData.Values["id"];
             int f= Int32.Parse(id);
             Flow flow = operation.FindFlowById(f);
 
@@ -126,7 +143,7 @@ namespace WebApplication1.Controllers
             Step step = operation.FindStep(p);            
 
             flow.id_position = step.End_position_id;
-            operation.Update<Flow>(flow);
+            operation.Update<Flow>(flow);*/
             return View();
         }
     }

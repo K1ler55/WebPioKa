@@ -1,4 +1,6 @@
-﻿
+﻿@model WebApplication1.FullFlowModel
+
+
 @{
     ViewBag.Title = "Execute";
 }
@@ -13,15 +15,51 @@ else
 <h2>Edytujesz Flow</h2>
 <h3>@ViewBag.Flow.Name</h3>
 
-<button type="button" onclick="location.href='@Url.Action("Change", "Tasks", new { id = @ViewBag.Flow.id_flow })' ">Akceptuj</button><br />
+<button type="button" onclick="location.href='@Url.Action("Change", "Tasks", new { id = @ViewBag.Flow.id_flow, model = @Model })' ">Akceptuj</button><br />
 <br />
 
     <h4>@ViewBag.Tekst</h4>
 
+    using (Html.BeginForm("Change", "Tasks", FormMethod.Post))
+    {
+
+        for (var i = 0; i < @Model.list.Count; i++)
+        {
+            <h4>@Model.list[i].name</h4>
+            string type = "text";
+            if (Model.list[i].type.Equals("checkbox")){
+                type = "checkbox";
+            }
+            if (Model.list[i].required == 1)
+            {
+                <div>@Html.TextBoxFor(m => m.list[i].value, new {type= @type, required = "required" })</div>
+            }
+            else
+            {
+                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type})</div>
+            }
+        }
+
+        for (var i = 0; i < @Model.list_int.Count; i++)
+        {
+            <h4>@Model.list_int[i].name</h4>
+            if (Model.list_int[i].required == 1)
+            {
+                <div>@Html.TextBoxFor(m => m.list_int[i].value, new {type= "number", required = "required" })</div>
+            }
+            else
+            {
+                <div>@Html.TextBoxFor(m => m.list_int[i].value, new { type = "number"})</div>
+            }
+        }
+
+
+        <input type="submit" value="Save" id="btnsave" name="btnsave" />
+    }
 
 
 
-    
+
 
 
 }

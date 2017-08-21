@@ -1,23 +1,12 @@
-﻿@inherits System.Web.Mvc.WebViewPage
-@using DevExpress.Web.Mvc.UI;
-
-@Html.DevExpress().GetStyleSheets(
-        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
-        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors }
-    )
-@Html.DevExpress().GetScripts(
-        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
-        new Script { ExtensionSuite = ExtensionSuite.Editors }
-    )
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
+
 
 <h2>Twoje pozycje</h2>
 
 
-@foreach (KeyValuePair<Position, IList<Flow>> item in ViewBag.Map)
+@foreach (KeyValuePair<Position, IList<Flow>> item in ViewBag.Task.Map)
 {
     <h2>@item.Key.Name</h2><br/>
 
@@ -34,53 +23,6 @@
         <br/>
     }
 }
-
-
-
-@Html.DevExpress().FormLayout(settings =>
-{
-    settings.Name = "formLayout";
-    settings.EncodeHtml = false;   
-
-
-    var groupItem = settings.Items.AddGroupItem(itemSettings =>
-    {
-        itemSettings.Caption = "Test";
-        itemSettings.ShowCaption = DefaultBoolean.False;
-        itemSettings.SettingsItemHelpTexts.Position = HelpTextPosition.Bottom;
-    });
-
-    int number = 0;
-    foreach(Attributes a in ViewBag.List)
-    {
-        if (a.Type.Equals("text"))
-        {
-            groupItem.Items.Add(i => { i.NestedExtension().TextBox(s => s.Name = a.Name); i.FieldName = a.Name; });
-        } else if (a.Type.Equals("list"))
-        {
-            groupItem.Items.Add(i =>
-            {
-                i.NestedExtension().ComboBox(s =>
-                {
-                    s.Name = a.Name;
-                    foreach (ListElement el in ViewBag.Attr[number])
-                    {
-                        s.Properties.Items.Add(el.Name, el.Name);
-                    }
-                    number++;
-                });
-                i.FieldName = a.Name;
-            });
-        } else if (a.Type.Equals("checkbox"))
-        {
-            groupItem.Items.Add(i => { i.NestedExtension().CheckBox(s => s.Name = a.Name); i.FieldName = a.Name; });
-        }
-    }
-
-    DevExpress.Utils.Serializing.XmlXtraSerializer serializer = new DevExpress.Utils.Serializing.XmlXtraSerializer();
-    serializer.DeserializeObject(this, Server.MapPath("~/App_Data/Test.xml"), "Test");
-
-}).GetHtml()
 
 
 

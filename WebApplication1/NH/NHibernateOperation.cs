@@ -67,6 +67,27 @@ namespace WebApplication1.NH
             }
         }
 
+        public Access GetAttributeAccess(int id_pos, int id_attr)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Access acc = new Access();
+                    try
+                    {
+                        acc = session.QueryOver<Access>().Where(x => (x.Id_attributes.Id_attribute == id_attr && x.Id_position.Id_position == id_pos)).List().First();
+                    }
+                    catch (Exception e)
+                    {
+                        Console.Write(e);
+                        return new Access();
+                    }
+                    transaction.Commit();
+                    return acc;
+                }
+            }
+        }
         public IList<Position> GetUserPositions(List<int> list)        {
             
             using (ISession session = InitNH.OppenSession())            {
@@ -81,6 +102,25 @@ namespace WebApplication1.NH
 
         }
 
+        public FlowExtension FindExtension(int id_flow, int id_attr)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    try
+                    {
+                        FlowExtension ext = session.QueryOver<FlowExtension>().Where(x => (x.id_attribute.Id_attribute == id_attr && x.id_flow.id_flow == id_flow)).List().First();
+                        transaction.Commit();
+                        return ext;
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
         public IList<Task> GetUserTasks (User user) 
         {
             
