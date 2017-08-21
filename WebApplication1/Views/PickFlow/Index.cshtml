@@ -1,13 +1,13 @@
-﻿@model  WebApplication1.Models.flowdefmodel
+﻿@model  WebApplication1.Models.flowdefmodellist
 @{ 
  Layout = null;
 }
 
 
-@using (Html.BeginForm("Pickthisflow","Pickflow",FormMethod.Post))
+@using (Html.BeginForm("Add","PickFlow",FormMethod.Post))
 {
 
-    @Html.DropDownListFor(model=>model.id_flowDefinition,new SelectList(Model.flowdefinitions, "id_flowDefinition"), "Select status",
-    new { @class = "form-control" })
-    <input type="submit" value="Submit"/>
+    @Html.DropDownListFor(m=>m.id_flowDefinition, new SelectList(Model.flowdefinitions, "id_flowDefinition", "Flow_name"))
+    @Html.TextBoxFor(m=>m.name)
+    <input type="submit" value="submit" />
 }

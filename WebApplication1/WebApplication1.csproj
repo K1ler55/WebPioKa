@@ -167,6 +167,7 @@
     <Compile Include="Class\Task.cs" />
     <Compile Include="Class\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\PickFlowController.cs" />
     <Compile Include="Controllers\WorkEditorController.cs" />
     <Compile Include="Controllers\DoneTasksController.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\flowdefmodel.cs" />
     <Compile Include="NH\InitNH.cs" />
     <Compile Include="NH\MapAttribute.cs" />
@@ -240,10 +242,13 @@
     <Content Include="Views\PickFlow\Index.cshtml" />
     <Content Include="Views\Tasks\Change.cshtml" />
     <Content Include="Views\WorkEditor\Add.cshtml" />
-    <Content Include="Views\WorkEditor\GetAttributeid.cshtml" />
+    <Content Include="Views\PickFlow\Add.cshtml" />
+    <Content Include="Views\Document\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DoneTasks\" />
+    <Folder Include="Views\Download\" />
+    <Folder Include="Views\History\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

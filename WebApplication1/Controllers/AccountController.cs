@@ -28,6 +28,11 @@ namespace WebApplication1.Controllers
         public ActionResult DoneTasks() {
             return RedirectToAction("Index", "DoneTasks"); }
 
+        public ActionResult Document()
+        {
+            return RedirectToAction("Index", "Document");
+        }
+
 
 
     }
