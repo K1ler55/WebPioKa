@@ -179,7 +179,10 @@
     </Compile>
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\flowdefmodel.cs" />
+    <Compile Include="Models\FlowModel.cs" />
+    <Compile Include="Models\TaskModel.cs" />
     <Compile Include="NH\InitNH.cs" />
+    <Compile Include="NH\MapAccess.cs" />
     <Compile Include="NH\MapAttribute.cs" />
     <Compile Include="NH\MapDocument.cs" />
     <Compile Include="NH\MapFlow.cs" />
