@@ -15,28 +15,41 @@ else
 <h2>Edytujesz Flow</h2>
 <h3>@ViewBag.Flow.Name</h3>
 
-<button type="button" onclick="location.href='@Url.Action("Change", "Tasks", new { id = @ViewBag.Flow.id_flow, model = @Model })' ">Akceptuj</button><br />
-<br />
 
     <h4>@ViewBag.Tekst</h4>
 
-    using (Html.BeginForm("Change", "Tasks", FormMethod.Post))
+    using (Html.BeginForm("Change", "Tasks", new { @id = @ViewBag.Flow.id_flow }, FormMethod.Post, new { id = "test" }))
     {
 
         for (var i = 0; i < @Model.list.Count; i++)
         {
             <h4>@Model.list[i].name</h4>
             string type = "text";
-            if (Model.list[i].type.Equals("checkbox")){
+            if (Model.list[i].type.Equals("checkbox"))
+            {
                 type = "checkbox";
             }
-            if (Model.list[i].required == 1)
+            if (Model.list[i].type.Equals("list"))
             {
-                <div>@Html.TextBoxFor(m => m.list[i].value, new {type= @type, required = "required" })</div>
+                if (Model.list[i].required == 1)
+                {
+                   <div>@Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list), new { required = "required" })</div>
+                }
+                else
+                {
+                   <div>@Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list))</div>
+                }
             }
             else
             {
-                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type})</div>
+                if (Model.list[i].required == 1)
+                {
+                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type, required = "required" })</div>
+                }
+                else
+                {
+                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type })</div>
+                }
             }
         }
 
@@ -58,8 +71,11 @@ else
     }
 
 
-
-
+    <h3>Pozostałe dane</h3>
+    foreach(String s in @Model.values)
+    {
+        <h4>@s</h4>
+    }
 
 
 }

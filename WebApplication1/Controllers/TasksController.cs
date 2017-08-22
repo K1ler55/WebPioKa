@@ -83,6 +83,7 @@ namespace WebApplication1.Controllers
             model.values = new List<string>();
             foreach (Attributes a in attrList)
             {
+
                 Access acc = operation.GetAttributeAccess(position, a.Id_attribute);
                 if(acc.Read_property==1 && (acc.Required_change==1 || acc.Optional_change == 1))
                 {
@@ -100,6 +101,17 @@ namespace WebApplication1.Controllers
                         f.name = a.Name;
                         f.required = acc.Required_change;
                         f.type = a.Type;
+                        if(a.Type.Equals("list"))
+                        {
+                            IList<ListElement> ll = operation.GetAttributeList(a.Id_attribute);
+                            List<string> str = new List<string>();
+                            str.Add(null);
+                            foreach(ListElement l in ll)
+                            {
+                                str.Add(l.Name);
+                            }
+                            f.list = str;
+                        }
                         model.list.Add(f);
                     }
                     
@@ -134,16 +146,23 @@ namespace WebApplication1.Controllers
 
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
 
-            /*string id = (string)RouteData.Values["id"];
+            string id = (string)RouteData.Values["id"];
             int f= Int32.Parse(id);
             Flow flow = operation.FindFlowById(f);
 
             Position p = operation.FindPositionById(flow.id_position.Id_position);
+            ViewBag.Pos = p.Id_position;
+            Step step = operation.FindStep(p);
 
-            Step step = operation.FindStep(p);            
-
-            flow.id_position = step.End_position_id;
-            operation.Update<Flow>(flow);*/
+            if (step != null)
+            {
+                flow.id_position = step.End_position_id;
+                operation.Update<Flow>(flow);
+            } else
+            {
+                flow.id_position = null;
+                operation.Update<Flow>(flow);
+            }
             return View();
         }
     }

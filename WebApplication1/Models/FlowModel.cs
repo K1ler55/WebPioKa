@@ -11,7 +11,8 @@ namespace WebApplication1
        public string name { get; set; } 
        public string type { get; set; }
        public T value { get; set; }
-       public int required { get; set; }       
+       public int required { get; set; }
+       public List<string> list { get; set; }
     }    
 
     public class FullFlowModel
@@ -19,7 +20,6 @@ namespace WebApplication1
         public List<FlowModel<string>> list { get; set; }
         public List<FlowModel<int>> list_int { get; set; }
         public List<string> values { get; set; }
-
         public int id { get; set; }
 
         

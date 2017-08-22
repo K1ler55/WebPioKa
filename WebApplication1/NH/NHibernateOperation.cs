@@ -138,6 +138,7 @@ namespace WebApplication1.NH
             
         }
         
+       
             public  Position GetPositionidFlow(int id)
         {
 
@@ -233,9 +234,16 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    Step step = session.QueryOver<Step>().Where(x => x.Start_position_id.Id_position == position.Id_position).List().First();
-                    transaction.Commit();
-                    return step;
+                    try
+                    {
+                        Step step = session.QueryOver<Step>().Where(x => x.Start_position_id.Id_position == position.Id_position).List().First();
+                        transaction.Commit();
+                        return step;
+                    } catch (Exception e)
+                    {
+                        return null;
+                    }
+                    
                 }
             }
         }
