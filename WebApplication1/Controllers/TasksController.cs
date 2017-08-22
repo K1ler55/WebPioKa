@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Dynamic;
 using WebApplication1.Models;
+using WorkFlowDesigner;
 
 namespace WebApplication1.Controllers
 {
@@ -45,7 +46,10 @@ namespace WebApplication1.Controllers
             }
             TaskModel task = new TaskModel();
             task.Map = map;
-            ViewBag.Task = task;           
+            ViewBag.Task = task;
+            
+            //List<string[]> list = parser.Condition(cond);
+            
 
             return View();
             
@@ -152,12 +156,72 @@ namespace WebApplication1.Controllers
 
             Position p = operation.FindPositionById(flow.id_position.Id_position);
             ViewBag.Pos = p.Id_position;
-            Step step = operation.FindStep(p);
+            Step step = operation.FindStep(p);         
+            
 
             if (step != null)
             {
                 flow.id_position = step.End_position_id;
-                operation.Update<Flow>(flow);
+
+                String cond = step.Condition;
+                if (cond != null)
+                {
+                    Parser parser = new Parser();
+                    string[] list = parser.Parse(cond);
+                    Dictionary<string, string> dict = new Dictionary<string, string>();
+
+                    foreach (FlowModel<string> mdl in model.list)
+                    {
+                        dict.Add(mdl.name, mdl.value);
+                    }
+                    foreach (FlowModel<int> mdl in model.list_int)
+                    {
+                        dict.Add(mdl.name, mdl.value.ToString());
+                    }
+                    
+                    List<bool> bool_list = new List<bool>();
+                    List<string> sign = new List<string>();
+                    foreach (string s in list)
+                    {
+                        string temp = s;
+                        char start = s[0];
+                        char end = s[s.Length - 1];
+                        string str = "";
+                        string en = "";
+
+                        if (start.Equals("|") || start.Equals("&"))
+                        {
+                            temp = s.Substring(2, s.Length - 2);
+                            str = "" + start + start;
+                            sign.Add(str);
+                        }
+                        if (end.Equals("|") || end.Equals("&"))
+                        {
+                            temp = temp.Substring(0, temp.Length - 2);
+                            en = "" + end + end;
+                            sign.Add(en);
+                        }
+
+                        bool result = parser.checkBracket(temp, dict);
+                        bool_list.Add(result);
+                    }
+
+                    bool wynik = bool_list[0];
+                    for (int i = 0; i < sign.Count; i++)
+                    {
+                        if (sign.Equals("||"))
+                        {
+                            wynik = wynik || bool_list[i + 1];
+                        }
+                        else
+                        {
+                            wynik = wynik && bool_list[i + 1];
+                        }
+                    }
+
+                    if (wynik == true) operation.Update<Flow>(flow);
+                    // JESLI NIE SPELNI WARUNKOW TO ROB CO INNEGO
+                } else operation.Update<Flow>(flow);
             } else
             {
                 flow.id_position = null;

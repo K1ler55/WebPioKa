@@ -162,6 +162,7 @@
     <Compile Include="Class\FlowDefinition.cs" />
     <Compile Include="Class\FlowExtension.cs" />
     <Compile Include="Class\ListElement.cs" />
+    <Compile Include="Class\Parser.cs" />
     <Compile Include="Class\Position.cs" />
     <Compile Include="Class\Step.cs" />
     <Compile Include="Class\Task.cs" />

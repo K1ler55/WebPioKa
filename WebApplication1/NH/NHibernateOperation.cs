@@ -248,6 +248,27 @@ namespace WebApplication1.NH
             }
         }
 
+        public Step FindStepById(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    try
+                    {
+                        Step step = session.QueryOver<Step>().Where(x => x.Id_step == id).List().First();
+                        transaction.Commit();
+                        return step;
+                    }
+                    catch (Exception e)
+                    {
+                        return null;
+                    }
+
+                }
+            }
+        }
+
         public void Delete<T>(T element)
         {
             using (ISession session = InitNH.OppenSession())
