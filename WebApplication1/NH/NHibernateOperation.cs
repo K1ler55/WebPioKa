@@ -313,6 +313,32 @@ namespace WebApplication1.NH
             return listposition;
         }
 
+        public IList<Attributes> GetTableAttributes(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Id_attribute == id && x.Type == "table" && x.Parent == null).List();
+                    transaction.Commit();
+                    return list;
+                }
+            }
+        }
+        public IList<Attributes> GetChildsAttribute(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Parent.Id_attribute  == id && x.Type == "Table").List();
+                    transaction.Commit();
+                    return list;
+                }
+            }
+        }
+
+
 
 
     }
