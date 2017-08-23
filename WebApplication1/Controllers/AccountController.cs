@@ -33,6 +33,11 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Document");
         }
 
+        public ActionResult Table()
+        {
+            return RedirectToAction("Index", "Table");
+        }
+
 
 
     }

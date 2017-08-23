@@ -54,11 +54,12 @@ namespace WebApplication1.Controllers
                     }
                     newDocument.Data = bytes;
                     newDocument.ContentType = contenttype;
+                    
                     operation.AddElement<Document>(newDocument);
-                    return View("Index", "Account");
+                    return RedirectToAction("Index", "Account");
                 }
             }
-            return RedirectToAction("Index", "Document");
+            return View("Index","Document");
         }
         [HttpPost]
         public FileResult Download(DocumentModel documentmodel)
@@ -66,7 +67,10 @@ namespace WebApplication1.Controllers
             Document document = new Document();
             document= operation.GetDocumentById(id);
             return File(document.Data, document.ContentType, document.Name);
+            
         }
+
+       
 
     }
 }

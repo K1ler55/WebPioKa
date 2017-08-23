@@ -10,7 +10,9 @@ namespace WebApplication1
     public class Document
     {
 
-        public virtual int Id_document { get; set; }        
+        public virtual int Id_document { get; set; }
+
+        [Required(ErrorMessage = "This field is required.")]
         public virtual string Name { get; set; }
         
         public virtual  byte[] Data { get; set; }

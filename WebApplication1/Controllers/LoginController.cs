@@ -28,8 +28,8 @@ namespace WebApplication1.Controllers
                     
                     //TasksController.user = u;
                     PickFlowController.user = u;
-                    WorkEditorController.user = u;                    
-                    
+                    WorkEditorController.user = u;
+                    TableController.user = u;
                     Session["users"] = u;
 
                     return RedirectToAction("Index", "Account");

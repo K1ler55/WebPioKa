@@ -17,10 +17,12 @@ namespace WebApplication1
 
     public class FullFlowModel
     {
+        
         public List<FlowModel<string>> list { get; set; }
         public List<FlowModel<int>> list_int { get; set; }
         public List<string> values { get; set; }
         public int id { get; set; }
+
 
         
     }

@@ -29,7 +29,10 @@ namespace WebApplication1.Controllers
             flow.id_position = operation.GetPositionidFlow(model.id_flowDefinition);
             flow.id_user = user;
             flow.Name = model.name;
-            operation.AddElement<Flow>(flow);
+            if (flow.id_flowdefinition != null && flow.id_position != null && flow.id_user != null && flow.Name != null)
+            {
+                operation.AddElement<Flow>(flow);
+            }
             
             return View();
         }
