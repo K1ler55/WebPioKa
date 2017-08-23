@@ -319,7 +319,7 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Id_attribute == id && x.Type == "table" && x.Parent == null).List();
+                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Id_workflow.id_flowDefinition == id && x.Type == "Table" && x.Parent==null).List();
                     transaction.Commit();
                     return list;
                 }
@@ -331,7 +331,19 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Parent.Id_attribute  == id && x.Type == "Table").List();
+                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Parent.Id_attribute==id ).List();
+                    transaction.Commit();
+                    return list;
+                }
+            }
+        }
+        public IList<FlowExtension>flowextensionAttributesTable(int id_flow,int id_attribute)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<FlowExtension> list = session.QueryOver<FlowExtension>().Where(x => x.id_flow.id_flow == id_flow && x.id_attribute.Id_attribute == id_attribute).List();
                     transaction.Commit();
                     return list;
                 }

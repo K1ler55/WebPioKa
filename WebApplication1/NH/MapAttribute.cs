@@ -17,7 +17,7 @@ namespace WebApplication1
             Id(x => x.Id_attribute, m => { m.Column("id_attribute"); m.Generator(Generators.Identity); });
             Property(x => x.Name, m => { m.Column("name"); });
             ManyToOne(x => x.Parent, m => {
-                m.Column("id_attribute");
+                m.Column("parent");
             });
             Property(x => x.Type, m => { m.Column("type"); });
             Bag(x => x.List, m =>
