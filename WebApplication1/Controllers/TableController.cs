@@ -12,6 +12,7 @@ namespace WebApplication1.Controllers
         FlowDefinition flowdef = new FlowDefinition();
         Flow flow = new Flow();
         public static User user;
+        
         // GET: Table
         public ActionResult Index()
         {
@@ -29,40 +30,61 @@ namespace WebApplication1.Controllers
 
         public ActionResult PickTable(AttributeModel atrmodel)
         {
+            flow.id_flow = 1072;
             atrmodel.flowextension = new List<FlowExtension>();
+            FlowExtension flowex = new FlowExtension();
             flowdef.id_flowDefinition = 83;
             atrmodel.atributechilds = operation.GetChildsAttribute(atrmodel.Id_attribute);
             atrmodel.Attributeslist = operation.GetTableAttributes(flowdef.id_flowDefinition);
             IList<FlowExtension> listapomoc = new List<FlowExtension>();
-            foreach (var item in atrmodel.atributechilds)
-            {
-                listapomoc = operation.flowextensionAttributesTable(1072, item.Id_attribute);
-                foreach (var i in listapomoc)
+           if(atrmodel.listaKarola==null)
+              {
+                atrmodel.listaKarola = new List<IList<FlowExtension>>();
+                foreach (var item in atrmodel.atributechilds)
                 {
-                    atrmodel.flowextension.Add(i);
+                    listapomoc = operation.flowextensionAttributesTable(1072, item.Id_attribute);
+                    atrmodel.listaKarola.Add(listapomoc);
                 }
             }
-            return View("Index",atrmodel);
-        }
-        [HttpPost]
-        public ActionResult Pickchild(AttributeModel atrmodel)
-        {
-
-            return View("Index", atrmodel);
-        }
-     /*   [HttpPost]
-        public ActionResult Create(AttributeModel model)
-        {
-            model.flowextension = operation.GetList<FlowExtension>();
-            foreach (var item in model.atributechilds)
+            if (Request.Form["Add"] != null)
             {
+                
+                for (int i = 0; i < atrmodel.atributechilds.Count; i++)
+                {
+                    flowex.id_attribute = atrmodel.atributechilds[i];
+                    flowex.id_flow = flow;
+                    flowex.Value = "test";
+                    operation.AddElement<FlowExtension>(flowex);
+                }
+                foreach (var item in atrmodel.atributechilds)
+                {
 
-            model.flowextension.Add(new FlowExtension());
-             model.flowextension.Last().id_attribute = item;
-                model.flowextension.Last().id_flow = flow;
+                    listapomoc = operation.flowextensionAttributesTable(1072, item.Id_attribute);
+                    atrmodel.listaKarola.Add(listapomoc);
+
+                }
+
             }
-            return View("Index", model);
-        }*/
+            if (Request.Form["newValue"] != null)
+            {
+                for (int i = 0; i < atrmodel.listaKarola.ElementAt(0).Count; i++)
+                {
+                    for (int item = 0; item < atrmodel.listaKarola.Count; item++)
+                    {
+                        flowex.id_attribute = atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_attribute;
+                        flowex.id_flow = atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_flow;
+                        flowex.id_flowextension= atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_flowextension;
+                        flowex.Value = atrmodel.listaKarola.ElementAt(item).ElementAt(i).Value;
+
+                        operation.Update<FlowExtension>(flowex);
+                        
+                    }
+                } 
+            }
+                return View("Index",atrmodel);
+        }
+        
+      
 
     }
 }

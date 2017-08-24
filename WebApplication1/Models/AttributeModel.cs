@@ -12,6 +12,7 @@ namespace WebApplication1.Models
         public IList<Attributes> Attributeslist { get; set; }
 
         public IList<FlowExtension> flowextension { get; set; }
+        public List<IList<FlowExtension>> listaKarola { get; set; }
 
 
     }

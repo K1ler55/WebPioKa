@@ -343,7 +343,7 @@ namespace WebApplication1.NH
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<FlowExtension> list = session.QueryOver<FlowExtension>().Where(x => x.id_flow.id_flow == id_flow && x.id_attribute.Id_attribute == id_attribute).List();
+                    IList<FlowExtension> list = session.QueryOver<FlowExtension>().Where(x => x.id_flow.id_flow == id_flow && x.id_attribute.Id_attribute==id_attribute).List();
                     transaction.Commit();
                     return list;
                 }

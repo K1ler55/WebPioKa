@@ -8,27 +8,41 @@
 {
     
     @Html.DropDownListFor(m => m.Id_attribute, new SelectList(Model.Attributeslist, "Id_attribute", "Name"))
-    <input type="submit" value=" ok"/>
-}
-
-@using (Html.BeginForm("Pickchild", "Table", FormMethod.Post))
-{
-    foreach (var item in Model.atributechilds)
+    <input type="submit" name="Show" value=" Wybierz Tabele" />
+    <input type="submit" name="Add" value="Add" />
+    if (Model.atributechilds.Count != 0)
     {
-        <td>@item.Name</td>
-        {
-            foreach (var i in Model.flowextension)
+    <table border="1">
+        <tr>
+            @for (int item = 0; item < Model.atributechilds.Count; item++)
             {
-                <tr>@Html.EditorForModel(i.Value)</tr>
+                <td>@Model.atributechilds[item].Name</td>
             }
+        </tr>
+        @for (int i = 0; i < Model.listaKarola.ElementAt(0).Count; i++)
+        {
+            <tr>
+                @for (int item = 0; item < Model.listaKarola.Count; item++)
+                {
+
+                <td>
+                    @Html.TextBoxFor(Model => Model.listaKarola.ElementAt(item).ElementAt(i).Value)
+
+                   
+                </td>
+                }
+            </tr>
         }
 
-
-
-
-
+</table>
+<input type="submit" name="newValue" value="ZapiszWartosci" />
     }
+
+
+
 }
+
+
 
 
 

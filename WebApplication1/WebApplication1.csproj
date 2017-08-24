@@ -251,6 +251,8 @@
     <Content Include="Views\Document\Index.cshtml" />
     <Content Include="Views\Table\Index.cshtml" />
     <Content Include="Views\Table\PickTable.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Table\Value.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DoneTasks\" />
