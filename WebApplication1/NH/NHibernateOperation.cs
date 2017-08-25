@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NHibernate;
-
+using NHibernate.Criterion;
 
 namespace WebApplication1.NH
 {
@@ -313,37 +313,43 @@ namespace WebApplication1.NH
             return listposition;
         }
 
-        public IList<Attributes> GetTableAttributes(int id)
+        public List<Attributes> GetTableAttributes(int id)
         {
             using (ISession session = InitNH.OppenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Id_workflow.id_flowDefinition == id && x.Type == "Table" && x.Parent==null).List();
+                    var list = session.QueryOver<Attributes>().Where(x => x.Id_workflow.id_flowDefinition == id && x.Type == "Table" && x.Parent==null).List().ToList();
                     transaction.Commit();
                     return list;
                 }
             }
         }
-        public IList<Attributes> GetChildsAttribute(int id)
+        public List<Attributes> GetChildsAttribute(int id)
         {
             using (ISession session = InitNH.OppenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<Attributes> list = session.QueryOver<Attributes>().Where(x => x.Parent.Id_attribute==id ).List();
+                    var list = session.QueryOver<Attributes>().Where(x => x.Parent.Id_attribute==id ).List().ToList();
                     transaction.Commit();
                     return list;
                 }
             }
         }
-        public IList<FlowExtension>flowextensionAttributesTable(int id_flow,int id_attribute)
+        public List<FlowExtension>flowextensionAttributesTable(int id_flow, List<Attributes> attributes)
         {
+            var keys = attributes.Select(x => x.Id_attribute).ToList();
+
             using (ISession session = InitNH.OppenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-                    IList<FlowExtension> list = session.QueryOver<FlowExtension>().Where(x => x.id_flow.id_flow == id_flow && x.id_attribute.Id_attribute==id_attribute).List();
+                    var list = session.QueryOver<FlowExtension>()
+                        .Where(x => x.id_flow.id_flow == id_flow)
+                        .And(Restrictions.On<FlowExtension>(y => y.id_attribute.Id_attribute).IsIn(keys))
+                        //&& x.id_attribute.Id_attribute==id_attribute)
+                        .List().ToList();
                     transaction.Commit();
                     return list;
                 }

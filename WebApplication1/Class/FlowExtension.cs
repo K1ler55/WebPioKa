@@ -12,5 +12,6 @@ namespace WebApplication1
         public virtual Flow id_flow { get; set; }
         public virtual Attributes id_attribute { get; set; }
         public virtual IList<Document> documentList { get; set; }
+        public virtual int? RowIndex { get; set; }
     }
 }

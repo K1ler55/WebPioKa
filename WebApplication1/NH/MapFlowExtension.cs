@@ -15,7 +15,7 @@ namespace WebApplication1
             Table("FlowExtension");
             Id(x => x.id_flowextension, m => { m.Column("id_flowextension"); m.Generator(Generators.Identity); });
             Property(x => x.Value, m => { m.Column("value"); });
-           
+            Property(x => x.RowIndex, m => { m.Column("row_index"); });
             ManyToOne(x => x.id_attribute, m =>
             {
                 m.Column("id_attribute");
