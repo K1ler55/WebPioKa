@@ -1,17 +1,8 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-
-</head>
-<body>
-    
-    <button type="button" onclick="location.href='@Url.Action("Index", "PickFlow")' ">PickFlow</button>
-
-    <button type="button" onclick="location.href='@Url.Action("Index", "Tasks")' ">Tasks</button>
-
-    <button type="button" onclick="location.href='@Url.Action("Index", "Document")' ">Document</button>
-
-    <button type="button" onclick="location.href='@Url.Action("Index", "Table")' ">Table</button>
-</body>
+<div class="container">
+    <h2>Welcome in application</h2>
+    <h3>@ViewBag.User.Name</h3>
+</div>

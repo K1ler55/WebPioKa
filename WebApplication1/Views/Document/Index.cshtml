@@ -1,18 +1,24 @@
 ﻿@model WebApplication1.Models.DocumentModel
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container">
 @using (Html.BeginForm("Add", "Document", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{ <tr></tr>
-    <input type="file" name="uploadFile" />
-    <tr></tr>
-    <input type="submit" />
+{   <h2>Add Documents</h2>    
+        <input class="btn btn-primary" type="file" name="uploadFile" />
+        <br />
+        <input class="btn btn-primary" type="submit" />
 }
+<br />
 @using (Html.BeginForm("Download", "Document", FormMethod.Post))
 {
-
-    @Html.DropDownListFor(Model=>Model.id_document, new SelectList(Model.Documents, "Id_document", "Name"))
-    <input type="submit" value="submit" />
+    <h2>Get Documents</h2>
+    <div class="dropdown">
+        @Html.DropDownListFor(Model => Model.id_document, new SelectList(Model.Documents, "Id_document", "Name"), new { @class = "form-control" })
+    </div>
+    <br />
+        <input class="btn btn-primary" type="submit" value="submit" />
 }
-<h2>Index</h2>
+</div>
 

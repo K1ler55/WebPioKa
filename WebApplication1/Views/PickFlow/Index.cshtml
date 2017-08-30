@@ -1,13 +1,17 @@
 ﻿@model  WebApplication1.Models.flowdefmodellist
-@{ 
- Layout = null;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-@using (Html.BeginForm("Add","PickFlow",FormMethod.Post))
-{
-
-    @Html.DropDownListFor(m=>m.id_flowDefinition, new SelectList(Model.flowdefinitions, "id_flowDefinition", "Flow_name"))
-    @Html.TextBoxFor(m=>m.name)
-    <input type="submit" value="submit" />
-}
+<div class="container">
+    @using (Html.BeginForm("Add", "PickFlow", FormMethod.Post))
+    {
+        <h2>Choose Flow</h2>
+        <div class="dropdown">
+            @Html.DropDownListFor(m => m.id_flowDefinition, new SelectList(Model.flowdefinitions, "id_flowDefinition", "Flow_name"))
+        </div>
+        <br />
+            @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+            <input class="btn btn-primary" type="submit" value="submit" />
+            }
+        </div>

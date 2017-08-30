@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using System.Dynamic;
 using WebApplication1.Models;
 using WorkFlowDesigner;
+using System.Xml.Serialization;
 
 namespace WebApplication1.Controllers
 {
@@ -53,7 +54,16 @@ namespace WebApplication1.Controllers
 
             return View();
             
-        }        
+        }
+        
+        public Item findItem(string name, Items items)
+        {
+            foreach(Item item in items.itemList)
+            {
+                if (item.id.name.Equals(name)) return item;
+            }
+            return null;
+        }
 
         public ActionResult Execute(int number)
         {          
@@ -79,12 +89,35 @@ namespace WebApplication1.Controllers
                     break;
                 }
             }
+            FlowDefinition fl = operation.GetFlowDefinition(flow.id_flowdefinition.id_flowDefinition);
+            Document doc = operation.GetDocumentByName(fl.Flow_name);
+            byte[] data = doc.Data;
+            string str2 = System.Text.Encoding.UTF8.GetString(data, 0, data.Length);
+            string sub = str2.Substring(1);
+
+            XmlSerializer deserializer = new XmlSerializer(typeof(Items));
+            XmlDocument docxml = new XmlDocument();
+            docxml.LoadXml(sub);
+            XmlNodeReader node = new XmlNodeReader(docxml);
+            object obj = deserializer.Deserialize(node);
+            Items XmlData = (Items)obj;
+            node.Close();
+            Dictionary<string, Item> itemMap = new Dictionary<string, Item>();
+            foreach(Item it in XmlData.itemList)
+            {
+                if(it.id.name.Equals("Item "))
+                {
+                    it.id.name = "check";
+                }
+                itemMap.Add(it.id.name, it);
+            }
 
             IList<Attributes> attrList = operation.GetAttributesByFlow(flow.id_flowdefinition.id_flowDefinition);
             FullFlowModel model = new FullFlowModel();
             model.list = new List<FlowModel<string>>();
             model.list_int = new List<FlowModel<int>>();
             model.values = new List<string>();
+            model.items = XmlData;
             foreach (Attributes a in attrList)
             {
 
@@ -97,6 +130,7 @@ namespace WebApplication1.Controllers
                         f.name = a.Name;
                         f.required = acc.Required_change;
                         f.type = a.Type;
+                        f.item = itemMap[a.Name];
                         model.list_int.Add(f);
                     } 
                     else
@@ -105,7 +139,8 @@ namespace WebApplication1.Controllers
                         f.name = a.Name;
                         f.required = acc.Required_change;
                         f.type = a.Type;
-                        if(a.Type.Equals("list"))
+                        f.item = itemMap[a.Name];
+                        if (a.Type.Equals("list"))
                         {
                             IList<ListElement> ll = operation.GetAttributeList(a.Id_attribute);
                             List<string> str = new List<string>();
@@ -127,6 +162,20 @@ namespace WebApplication1.Controllers
                 
             }
             ViewBag.Test = model;
+
+            int max = 0;
+            foreach(Item i in XmlData.itemList)
+            {
+                if ((i.location.y + i.size.height) > max)
+                {
+                    max = (i.location.y + i.size.height);
+                }
+            }
+
+            max = max + 70;
+            ViewBag.Max = max.ToString()+"px";
+
+            ViewBag.Tekst = "";
 
             return View(model);
         }
@@ -157,7 +206,7 @@ namespace WebApplication1.Controllers
             Position p = operation.FindPositionById(flow.id_position.Id_position);
             ViewBag.Pos = p.Id_position;
             Step step = operation.FindStep(p);         
-            
+            ViewBag.Model = model;
 
             if (step != null)
             {
@@ -178,7 +227,7 @@ namespace WebApplication1.Controllers
                     {
                         dict.Add(mdl.name, mdl.value.ToString());
                     }
-                    
+
                     List<bool> bool_list = new List<bool>();
                     List<string> sign = new List<string>();
                     foreach (string s in list)
@@ -219,15 +268,77 @@ namespace WebApplication1.Controllers
                         }
                     }
 
-                    if (wynik == true) operation.Update<Flow>(flow);
+                    if (wynik == true)
+                    {
+                        MailController mm = new MailController();
+                        
+
+                        IList<Task> tasks = operation.GetTasksByPositionId(step.End_position_id);
+                        foreach (Task t in tasks)
+                        {
+                            ModelMail mdl = new ModelMail();
+                            mdl.from = "noreply.opteam@gmail.com";
+                            User us = operation.GetUserById(t.Id_user.Id_user);
+                            mdl.to = us.Email;
+                            mdl.subject = "Nowe zadanie";
+                            mdl.value = " Masz nowe zadanie wejdz na konto i sprawdz";
+                            mm.sendMail(mdl);
+                        }
+                        //AddElements(flow, model);
+                        //operation.Update<Flow>(flow);
+                    }
                     // JESLI NIE SPELNI WARUNKOW TO ROB CO INNEGO
-                } else operation.Update<Flow>(flow);
+                }
+                else
+                {
+                    MailController mm = new MailController();
+                    IList<Task> tasks = operation.GetTasksByPositionId(step.End_position_id);
+                    foreach (Task t in tasks)
+                    {
+                        ModelMail mdl = new ModelMail();
+                        mdl.from = "noreply.opteam@gmail.com";
+                        User us = operation.GetUserById(t.Id_user.Id_user);
+                        mdl.to = us.Email;
+                        mdl.subject = "Nowe zadanie";
+                        mdl.value = " Masz nowe zadanie wejdz na konto i sprawdz";
+                        mm.sendMail(mdl);
+                    }
+                    //AddElements(flow, model);
+                    //operation.Update<Flow>(flow);
+                }
+
             } else
             {
                 flow.id_position = null;
-                operation.Update<Flow>(flow);
+                //AddElements(flow, model);
+                //operation.Update<Flow>(flow);
             }
             return View();
+        }
+
+        public void AddElements(Flow flow, FullFlowModel model)
+        {
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            for (int i = 0; i < model.list.Count; i++)
+            {
+                Attributes a = operation.FindAttributeByName(model.list[i].name);
+                createExtension(flow, a, model.list[i].value);
+            }
+            for (int i = 0; i < model.list_int.Count; i++)
+            {
+                Attributes a = operation.FindAttributeByName(model.list_int[i].name);
+                createExtension(flow, a, model.list_int[i].value.ToString());
+            }
+        }
+        
+        public void createExtension(Flow id_flow, Attributes id_attr,string value)
+        {
+            FlowExtension ext = new FlowExtension();
+            ext.id_flow = id_flow;
+            ext.id_attribute = id_attr;
+            ext.Value = value;
+            NH.NHibernateOperation operation = new NH.NHibernateOperation();
+            operation.AddElement<FlowExtension>(ext);
         }
     }
 }

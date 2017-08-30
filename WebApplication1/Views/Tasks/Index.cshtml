@@ -1,9 +1,12 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
     ViewBag.Title = "Index";
 }
 
 
-<h2>Twoje pozycje</h2>
+<h2>Your positions</h2>
 
 
 @foreach (KeyValuePair<Position, IList<Flow>> item in ViewBag.Task.Map)
@@ -12,14 +15,14 @@
 
     if (item.Value.Count == 0)
     {
-        <h2>Nie masz tutaj zadań do wykonania</h2>
+        <h2>You don't have task to do in this position</h2>
     }
     
 
     for (int i = 0; i < item.Value.Count; i++)
     {
         <h3>@item.Value[i].Name</h3>
-        <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { id = item.Key.Id_position, number = item.Value[i].id_flow })' ">Wykonaj to</button><br />
+        <button type="button" onclick="location.href='@Url.Action("Execute", "Tasks", new { id = item.Key.Id_position, number = item.Value[i].id_flow })' ">Do it</button><br />
         <br/>
     }
 }

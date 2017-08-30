@@ -15,14 +15,19 @@ namespace WebApplication1.Controllers
             //informacje o uzytkowniku jakies pierdolki
             User user = (User)Session["users"];
             if (user == null) return RedirectToAction("Index", "Login");
+            ViewBag.User = user;
             return View();
         }
         public ActionResult PickFlow()
         {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
             return RedirectToAction("Index", "PickFlow");
         }
         public ActionResult Tasks()
         {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
             return RedirectToAction("Index", "Tasks");
         }
         public ActionResult DoneTasks() {
@@ -30,15 +35,24 @@ namespace WebApplication1.Controllers
 
         public ActionResult Document()
         {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
             return RedirectToAction("Index", "Document");
         }
 
         public ActionResult Table()
         {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
             return RedirectToAction("Index", "Table");
         }
 
-
+        public ActionResult Mail()
+        {
+            User user = (User)Session["users"];
+            if (user == null) return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Mail");
+        }
 
     }
 }

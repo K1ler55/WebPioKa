@@ -9,5 +9,7 @@ namespace WebApplication1
     {
         private Dictionary<Position, IList<Flow>> map = new Dictionary<Position, IList<Flow>>();
         public Dictionary<Position, IList<Flow>> Map { get; set; }
+
+        
     }
 }

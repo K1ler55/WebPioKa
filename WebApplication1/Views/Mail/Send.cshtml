@@ -1,0 +1,32 @@
+﻿@model  WebApplication1.Models.ModelMail
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2>@ViewBag.User.Name @ViewBag.User.Surname @ViewBag.User.Email @ViewBag.User.Password</h2>
+    @using (Html.BeginForm("Sending", "Mail", FormMethod.Post))
+    {
+        <h2>From</h2>
+        <br/>
+        @Html.TextBoxFor(m => m.from, new { @class = "form-control", @Value = @ViewBag.User.Email, required = "required" })
+        <br />
+        <h2>To</h2>
+        @Html.TextBoxFor(m => m.to, new { @class = "form-control", @Value = @Model.to, required = "required" })
+        <br />
+        <h2>Subject</h2>
+        <br />
+        @Html.TextBoxFor(m => m.subject, new { @class = "form-control", required = "required" })
+        <br />
+
+        <h2>Value</h2>
+        <br />
+        @Html.TextAreaFor(m => m.value, new { @class = "form-control", required = "required" })
+
+        
+        
+
+        <br />
+        <input class="btn btn-primary" type="submit" value="submit" />
+    }
+</div>

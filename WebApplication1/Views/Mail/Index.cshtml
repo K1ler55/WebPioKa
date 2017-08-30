@@ -1,0 +1,16 @@
+﻿@model  WebApplication1.Models.MailModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+@using (Html.BeginForm("Send", "Mail", FormMethod.Post))
+{
+    <h2>Choose User</h2>
+    <div class="dropdown">
+        @Html.DropDownListFor(Model => Model.Id_user, new SelectList(Model.userList, "Id_user", "Name"))
+    </div>
+    <br />
+    <input class="btn btn-primary" type="submit" value="Write" />
+}
+</div>

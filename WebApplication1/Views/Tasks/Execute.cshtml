@@ -1,81 +1,25 @@
 ﻿@model WebApplication1.FullFlowModel
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 @{
     ViewBag.Title = "Execute";
 }
 
-@if (ViewBag.Result == 403)
-{
-    <h1>403</h1>
-    <h2>Nie masz dostępu do podanego zasobu</h2>
-}
-else
-{
-<h2>Edytujesz Flow</h2>
-<h3>@ViewBag.Flow.Name</h3>
-
-
-    <h4>@ViewBag.Tekst</h4>
-
-    using (Html.BeginForm("Change", "Tasks", new { @id = @ViewBag.Flow.id_flow }, FormMethod.Post, new { id = "test" }))
+<div class="container">
+    @if (ViewBag.Result == 403)
     {
-
-        for (var i = 0; i < @Model.list.Count; i++)
-        {
-            <h4>@Model.list[i].name</h4>
-            string type = "text";
-            if (Model.list[i].type.Equals("checkbox"))
-            {
-                type = "checkbox";
-            }
-            if (Model.list[i].type.Equals("list"))
-            {
-                if (Model.list[i].required == 1)
-                {
-                   <div>@Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list), new { required = "required" })</div>
-                }
-                else
-                {
-                   <div>@Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list))</div>
-                }
-            }
-            else
-            {
-                if (Model.list[i].required == 1)
-                {
-                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type, required = "required" })</div>
-                }
-                else
-                {
-                <div>@Html.TextBoxFor(m => m.list[i].value, new { type = @type })</div>
-                }
-            }
-        }
-
-        for (var i = 0; i < @Model.list_int.Count; i++)
-        {
-            <h4>@Model.list_int[i].name</h4>
-            if (Model.list_int[i].required == 1)
-            {
-                <div>@Html.TextBoxFor(m => m.list_int[i].value, new {type= "number", required = "required" })</div>
-            }
-            else
-            {
-                <div>@Html.TextBoxFor(m => m.list_int[i].value, new { type = "number"})</div>
-            }
-        }
-
-
-        <input type="submit" value="Save" id="btnsave" name="btnsave" />
+        <h1>403</h1>
+        <h2>You don't have permissions</h2>
     }
-
-
-    <h3>Pozostałe dane</h3>
-    foreach(String s in @Model.values)
+    else
     {
-        <h4>@s</h4>
+        <h2>Edit Flow</h2>
+        <h3>@ViewBag.Flow.Name</h3>
+
+
+        <h4>@ViewBag.Tekst</h4>
+        Html.RenderPartial("~/Views/Tasks/TaskForm.cshtml");
     }
-
-
-}
+</div>

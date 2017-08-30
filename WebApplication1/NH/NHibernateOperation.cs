@@ -67,6 +67,45 @@ namespace WebApplication1.NH
             }
         }
 
+        public FlowDefinition GetFlowDefinition(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    FlowDefinition flow = session.QueryOver<FlowDefinition>().Where(x => x.id_flowDefinition == id).List().First();
+                    transaction.Commit();
+                    return flow;
+                }
+            }
+        }
+
+        public Document GetDocumentByName(string name)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Document doc = session.QueryOver<Document>().Where(x => x.Name.IsLike(name)).List().First();
+                    transaction.Commit();                    
+                    return doc;
+                }
+            }
+        }
+
+        public Attributes FindAttributeByName(string name)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    Attributes attr = session.QueryOver<Attributes>().Where(x => x.Name.IsLike(name)).List().First();
+                    transaction.Commit();
+                    return attr;
+                }
+            }
+        }
+
         public Access GetAttributeAccess(int id_pos, int id_attr)
         {
             using (ISession session = InitNH.OppenSession())
@@ -100,6 +139,34 @@ namespace WebApplication1.NH
                 }
             }
 
+        }
+
+        public IList<Task> GetTasksByPositionId(Position pos)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    IList<Task> user = session.QueryOver<Task>().Where(x => x.Id_position.Id_position==pos.Id_position).List();
+                    transaction.Commit();
+                    return user;
+                }
+            }
+        }
+
+        public User GetUserById(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    User user = session.QueryOver<User>().Where(x=> x.Id_user==id).List().First();
+                    transaction.Commit();
+                    return user;
+                }
+            }
         }
 
         public FlowExtension FindExtension(int id_flow, int id_attr)

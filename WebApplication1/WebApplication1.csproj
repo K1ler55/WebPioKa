@@ -169,6 +169,7 @@
     <Compile Include="Class\User.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\MailController.cs" />
     <Compile Include="Controllers\PickFlowController.cs" />
     <Compile Include="Controllers\TableController.cs" />
     <Compile Include="Controllers\WorkEditorController.cs" />
@@ -183,7 +184,9 @@
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\flowdefmodel.cs" />
     <Compile Include="Models\FlowModel.cs" />
+    <Compile Include="Models\MailModel.cs" />
     <Compile Include="Models\TaskModel.cs" />
+    <Compile Include="Models\XMLModel.cs" />
     <Compile Include="NH\InitNH.cs" />
     <Compile Include="NH\MapAccess.cs" />
     <Compile Include="NH\MapAttribute.cs" />
@@ -252,6 +255,10 @@
     <Content Include="Views\Table\Index.cshtml" />
     <Content Include="Views\Table\PickTable.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Tasks\TaskForm.cshtml" />
+    <Content Include="Views\Mail\Index.cshtml" />
+    <Content Include="Views\Mail\Send.cshtml" />
+    <Content Include="Views\Mail\Sending.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DoneTasks\" />

@@ -1,0 +1,128 @@
+﻿@model WebApplication1.FullFlowModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using WebApplication1.Models;
+
+<div style="position: relative; height:@ViewBag.Max;" class="container">
+
+    @{
+        int max_height = int.MinValue;
+        using (Html.BeginForm("Change", "Tasks", new { @id = @ViewBag.Flow.id_flow }, FormMethod.Post, new { id = "test" }))
+        {
+
+            for (var i = 0; i < @Model.list.Count; i++)
+            {
+
+                Item item = new Item();
+                string type = "text";
+                item = Model.list[i].item;
+                string y1 = "" + item.location.y + "px";
+                string x1 = "" + item.location.x + "px";
+                string h1 = "height:" + item.size.height + "px; width:"+item.size.width+"px;";
+                
+                if ((item.location.y + item.size.height) > max_height) { max_height = (item.location.y+item.size.height); }
+
+                if (Model.list[i].type.Equals("checkbox"))
+                {
+                    type = "checkbox";
+                    if (Model.list[i].required == 1)
+                    {
+                        <div  style="position: absolute;top:@y1;left:@x1;">
+                            @Html.CheckBoxFor(m => m.list[i].Value_bool, new { required = "required" , @style = @h1 })
+                            
+                        </div>
+                    }
+                    else
+                    {
+                        <div  style="position: absolute;top:@y1;left:@x1;">
+                            @Html.CheckBoxFor(m => m.list[i].Value_bool, new { @style = @h1 })
+                            
+                        </div>
+                    }
+                }
+                else if (Model.list[i].type.Equals("list"))
+                {
+                    if (Model.list[i].required == 1)
+                    {
+                        <div class="dropdown" style="position: absolute;top:@y1;left:@x1;">
+                            @Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list), new { @class = "form-control", required = "required", @style = @h1 })
+                           
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="dropdown" style="position: absolute;top:@y1;left:@x1;">
+                            @Html.DropDownListFor(Model => Model.list[i].value, new SelectList(Model.list[i].list), new { @class = "form-control",@style = @h1 })
+                            
+                        </div>
+                    }
+                }
+                else
+                {
+                    if (Model.list[i].required == 1)
+                    {
+                        <div style="position: absolute;top:@y1;left:@x1;">
+                            @Html.TextBoxFor(m => m.list[i].value, new { @class = "form-control",type = @type, required = "required", @style = @h1})
+                            
+                        </div>
+                    }
+                    else
+                    {
+                        <div style="position: absolute;top:@y1;left:@x1;">
+                            @Html.TextBoxFor(m => m.list[i].value, new { @class = "form-control", type = @type, @style = @h1})
+                            
+                        </div>
+                    }
+                }
+
+                @Html.TextBoxFor(m => m.list[i].name, new { @Value = @Model.list[i].name, @type = "hidden" })
+            }
+
+            for (var i = 0; i < @Model.list_int.Count; i++)
+            {
+
+                Item item = new Item();
+                item = Model.list_int[i].item;
+                //string pos = "position:absolute;bottom:" + item.location.y + "left:" + item.location.x;
+                string y1 = "" + item.location.y + "px";
+                string x1 = "" + item.location.x + "px";
+                string h1 = "height:" + item.size.height + "px; width:" + item.size.width + "px;";
+
+                if ((item.location.y + item.size.height) > max_height) { max_height = (item.location.y + item.size.height); }
+
+                if (Model.list_int[i].required == 1)
+                {
+                    <div style="position: absolute;top:@y1;left:@x1;">
+                        @Html.TextBoxFor(m => m.list_int[i].value, new { @class = "form-control", type = "number", required = "required",@style = @h1})
+                        
+                    </div>
+                }
+                else
+                {
+                    <div style="position: absolute;top:@y1;left:@x1;">
+                        @Html.TextBoxFor(m => m.list_int[i].value, new { @class = "form-control", type = "number", @style = @h1})
+                        
+                    </div>
+                }
+                @Html.TextBoxFor(m => m.list_int[i].name, new { @Value = @Model.list_int[i].name, @type = "hidden" })
+            }
+            max_height = max_height + 10;
+            string m2 = "" + max_height + "px";
+            <div style="position: absolute;top:@m2"><input type="submit" value="Save" id="btnsave" name="btnsave" /></div>
+            max_height = max_height + 30;
+            m2 = "" + max_height + "px";
+        }
+
+    }
+    @{string m3 = "" + max_height + "px";
+    <div style="position: absolute;top:@m3">
+        <h3>Pozostałe dane</h3>
+        @foreach (String s in @Model.values)
+        {
+            <h4>@s</h4>
+        }
+    </div>
+     }
+
+</div>
