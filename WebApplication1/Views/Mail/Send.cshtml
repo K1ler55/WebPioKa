@@ -4,16 +4,10 @@
 }
 
 <div class="container">
-    <h2>@ViewBag.User.Name @ViewBag.User.Surname @ViewBag.User.Email @ViewBag.User.Password</h2>
+   
     @using (Html.BeginForm("Sending", "Mail", FormMethod.Post))
-    {
-        <h2>From</h2>
-        <br/>
-        @Html.TextBoxFor(m => m.from, new { @class = "form-control", @Value = @ViewBag.User.Email, required = "required" })
-        <br />
-        <h2>To</h2>
-        @Html.TextBoxFor(m => m.to, new { @class = "form-control", @Value = @Model.to, required = "required" })
-        <br />
+    {       
+       
         <h2>Subject</h2>
         <br />
         @Html.TextBoxFor(m => m.subject, new { @class = "form-control", required = "required" })
@@ -23,8 +17,9 @@
         <br />
         @Html.TextAreaFor(m => m.value, new { @class = "form-control", required = "required" })
 
-        
-        
+        @Html.HiddenFor(m => m.from, new { @Value = @Model.from})
+        @Html.HiddenFor(m => m.to, new { @Value = @Model.to})
+
 
         <br />
         <input class="btn btn-primary" type="submit" value="submit" />

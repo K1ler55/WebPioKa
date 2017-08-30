@@ -33,8 +33,7 @@ namespace WebApplication1.Controllers
             NH.NHibernateOperation operation = new NH.NHibernateOperation();
             User u = operation.GetUserById(model.Id_user);
             mail.from = user.Email;
-            mail.to = u.Email;
-            ViewBag.User = user;
+            mail.to = u.Email;        
             
             return View(mail);
         }

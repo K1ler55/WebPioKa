@@ -8,7 +8,7 @@
 {
     <h2>Choose User</h2>
     <div class="dropdown">
-        @Html.DropDownListFor(Model => Model.Id_user, new SelectList(Model.userList, "Id_user", "Name"))
+        @Html.DropDownListFor(Model => Model.Id_user, new SelectList(Model.userList, "Id_user", "Name"), new { @class = "form-control" })
     </div>
     <br />
     <input class="btn btn-primary" type="submit" value="Write" />
