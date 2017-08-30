@@ -378,7 +378,7 @@ namespace WebApplication1.NH
 
             }
             return listposition;
-        }
+           }
 
         public List<Attributes> GetTableAttributes(int id)
         {
@@ -423,7 +423,19 @@ namespace WebApplication1.NH
             }
         }
 
-
+      
+        public FlowExtension Flowextension(int id)
+        {
+            using (ISession session = InitNH.OppenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    FlowExtension fe = session.QueryOver<FlowExtension>().Where(x => x.id_attribute.Id_attribute == id).List().First();
+                    transaction.Commit();
+                    return fe;
+                }
+            }
+        }
 
 
     }

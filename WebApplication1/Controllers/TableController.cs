@@ -27,12 +27,20 @@ namespace WebApplication1.Controllers
                 model.Id_attribute = -1;
                 model.atributechilds = new List<Attributes>();
                 
- 
+                
+                
+
             return View(model);
         }
         [HttpPost]
         public ActionResult PickTable(AttributeModel atrmodel)
         {
+            if (atrmodel.pomocnicza == null)
+            {
+                
+                atrmodel.pomocnicza = new List<FlowExtension>();
+            }
+            FlowExtension flowex = new FlowExtension();
             flow.id_flow = 1072;
             flowdef.id_flowDefinition = 83;
             if (atrmodel.atributechilds == null)
@@ -40,26 +48,30 @@ namespace WebApplication1.Controllers
                 atrmodel.atributechilds = operation.GetChildsAttribute(atrmodel.Id_attribute);
                 atrmodel.Attributeslist = operation.GetTableAttributes(flowdef.id_flowDefinition);
             }
-           if(atrmodel.listaKarola==null)
+           if(atrmodel.flowextensionlist == null)
               {
-                atrmodel.listaKarola = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
+                atrmodel.flowextensionlist = new List<FlowExtension>();
+                atrmodel.flowextensionlist = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
+                atrmodel.MaxRow= atrmodel.flowextensionlist.OrderBy(x => x.RowIndex).Last().RowIndex; 
             }
             if (Request.Form["Add"] != null)
             {
+                
                 for (int i = 0; i < atrmodel.atributechilds.Count; i++)
                 {
                     flowex.id_attribute = atrmodel.atributechilds[i];
                     flowex.id_flow = flow;
                     flowex.Value="";
+                    flowex.RowIndex = atrmodel.MaxRow +1;
                     operation.AddElement<FlowExtension>(flowex);
                 }
-                atrmodel.listaKarola = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
+                atrmodel.flowextensionlist = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
 
                 foreach (var item in atrmodel.atributechilds)
                 {
 
-                    //listapomoc = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
-                    //atrmodel.listaKarola.Add(listapomoc);
+                    atrmodel.flowextensionlist = operation.flowextensionAttributesTable(1072, atrmodel.atributechilds);
+                    atrmodel.MaxRow = atrmodel.flowextensionlist.OrderBy(x => x.RowIndex).Last().RowIndex;
 
                 }
                 return View("Index", atrmodel);
@@ -67,19 +79,17 @@ namespace WebApplication1.Controllers
             if (Request.Form["newValue"] != null)
             {
                 
-                //for (int i = 0; i < atrmodel.listaKarola.ElementAt(0).Count; i++)
-                //{
-                //    for (int item = 0; item < atrmodel.listaKarola.Count; item++)
-                //    {
-                       
-                //        flowex.id_attribute = atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_attribute;
-                //        flowex.id_flow = atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_flow;
-                //        flowex.id_flowextension= atrmodel.listaKarola.ElementAt(item).ElementAt(i).id_flowextension;
-                //        flowex.Value = atrmodel.listaKarola.ElementAt(item).ElementAt(i).Value;
-                //        operation.Update<FlowExtension>(flowex);
-                //    }
-                //} 
+                for (int items = 0; items < atrmodel.pomocnicza.Count; items++)
+                {
+
+                    flowex=operation.Flowextension(atrmodel.pomocnicza[items].id_flowextension);
+                    flowex.Value = atrmodel.pomocnicza[items].Value;
+                    operation.Update<FlowExtension>(flowex);
+                }
+                
             }
+                 
+            
             if (Request.Form["Delete"] != null)
             {
 

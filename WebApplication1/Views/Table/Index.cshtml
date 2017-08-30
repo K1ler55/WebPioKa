@@ -10,7 +10,9 @@
     @Html.DropDownListFor(m => m.Id_attribute, new SelectList(Model.Attributeslist, "Id_attribute", "Name"))
     <input type="submit" name="Show" value=" Wybierz Tabele" />
     <input type="submit" name="Add" value="Add" />
+    int c = 0;
     if (Model.atributechilds.Count != 0)
+
     {
 
         <table border="1">
@@ -21,30 +23,37 @@
                 }
             </tr>
 
-            @for(int j = 0; j < Model.listaKarola.Count / Model.atributechilds.Count; j++)
+            @for (int j = 0; j < Model.flowextensionlist.Count / Model.atributechilds.Count; j++)
             {
-                <tr>
-
-
-                </tr>
+                <tr></tr>
             }
 
-            @for (int r = 0; r < Model.MaxRow; r++)
+        @for (int r = 1; r <= Model.MaxRow; r++)
             {
-                var elements = Model.listaKarola.Where(x => x.RowIndex == r).ToList();
+            List<FlowExtension> elements = Model.flowextensionlist.Where(x => x.RowIndex == r).ToList();
                 <tr>
-                    @for (int item = 0; item < Model.atributechilds.Count; item++) {
-                        var e = elements.Where(x => x.id_attribute.Id_attribute == Model.atributechilds[item].Id_attribute);
-                    }
-                    @for (int item = 0; item < Model.listaKarola.Count; item++)
+                    @for (int item = 0; item < Model.atributechilds.Count; item++)
                     {
-                        <td>
-                            @Html.TextBoxFor(x => row[item].Value)
+                        Model.pomocnicza.AddRange(elements.Where(x => x.id_attribute.Id_attribute == Model.atributechilds[item].Id_attribute).ToList());
 
-                        </td>
+                        for (int items = 0; items < Model.pomocnicza.Count; items++)
+                        {
+
+                            if (c == items)
+                            {
+                            <td>
+                                @Html.TextBoxFor(Model => Model.pomocnicza[items].Value, new { Name = Model.pomocnicza[items].id_flowextension, id = Model.pomocnicza[items].id_flowextension })
+                                @Html.HiddenFor(Model => Model.pomocnicza[items].id_flowextension, new { Name = Model.pomocnicza[items].id_flowextension, id = Model.pomocnicza[items].id_flowextension })
+                            </td>
+                                c++;
+                            }
+
+
+                        }
                     }
                 </tr>
             }
+
 
         </table>
         <input type="submit" name="newValue" value="ZapiszWartosci" />

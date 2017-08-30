@@ -10,15 +10,14 @@ namespace WebApplication1.Models
         public int Id_attribute { get; set; }
         public List<Attributes> atributechilds { get; set; }
         public List<Attributes> Attributeslist { get; set; }
+        public List<FlowExtension> flowextensionlist { get; set; }
+        public List<FlowExtension> pomocnicza { get;set; }
 
-        public List<FlowExtension> listaKarola { get; set; }
+        public List<FlowExtension> pomocnicza2 { get; set; }
 
-        public int? MaxRow
+        public Nullable<int> MaxRow
         {
-            get
-            {
-                return listaKarola.OrderBy(x => x.RowIndex).Last().RowIndex;
-            }
+            get;set;
         }
 
 
